@@ -1,0 +1,292 @@
+{% extends 'base.html' %}
+
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/whatsapp.css') }}">
+<title>WhatsApp Viewer (v2.22.16.75)</title>
+{% endblock %}
+
+{% block body %}
+<div id="main" class="main two">
+    <div id="left" class="pane left">
+        <header id="chatlist-header" class="chatlist-header">
+            <div class="chats_nav nav">
+                <span class="nav_text">
+                    CHATS
+                </span>
+            </div>
+            <div class="status_nav nav">
+                <span class="nav_text">
+                    STATUS
+                </span>
+            </div>
+            <div class="calls_nav nav">
+                <span class="nav_text">
+                    CALLS
+                </span>
+            </div>
+        </header>
+        <div id="side" class="side">
+            <div class="search-div">
+                <input type="text" name="search_chat" id="search_chat" placeholder="Search chat" />
+                <button type="submit">Search</button>
+            </div>
+            <div id="pane-side" class="pane-side">
+                {% for row in result %}
+                <div id="chat_list_{{row['_id']}}" chatListId="{{row['_id']}}" chatListStatus="{{row['wa_con_status']}}" onclick="loadChat(this)" 
+                class="chat cur-point wdth-100"
+                    aria-label="Chat list" role="grid" aria-rowcount="1">
+                    <!-- padding: 0 15px 0 13px; -->
+                    <div style="padding: 0 15px 0 13px;align-self: center;">
+                        <div class="chat-img-profile">
+                            <!-- Checking if the sender has cached profile image in WhatsAppViewer/static/cache -->
+                            {% if row['jid_user'] %}
+                            {% if fileAvail('WhatsAppViewer/static/cache/'+row['jid_user']+'.jpg') %}
+                            <img class="chat-profile-pic" width=79px height=79px loading="lazy"
+                                src="{{url_for('static',filename='/cache/')}}{{row['jid_user']}}.jpg"
+                                alt="{{row['jid_user']}} IMG">
+
+                            {% else %}
+                            <!-- <img class="chat-profile-pic" width=79px height=79px
+                                        src="{{url_for('static',filename='img/default_avatar.jpg')}}"
+                                        alt="{{row['jid_user']}} IMG"> -->
+                            <div id="default-avatar-1" width="49px" height="49px">
+                                {% if row['growth_lock_level'] == 0 %}
+                                <span data-testid="default-group" data-icon="default-group" class="">
+                                    <svg width="100%" height="100%" viewBox="0 0 212 212" fill="none" class="">
+                                        <path class="background"
+                                            d="M105.946.25C164.318.25 211.64 47.596 211.64 106s-47.322 105.75-105.695 105.75C47.571 211.75.25 164.404.25 106S47.571.25 105.946.25Z"
+                                            fill="#DFE5E7"></path>
+                                        <path class="primary" clip-rule="evenodd"
+                                            d="M102.282 77.286c0 10.671-8.425 19.285-18.94 19.285s-19.003-8.614-19.003-19.285C64.339 66.614 72.827 58 83.342 58s18.94 8.614 18.94 19.286Zm48.068 2.857c0 9.802-7.738 17.714-17.396 17.714-9.658 0-17.454-7.912-17.454-17.714s7.796-17.715 17.454-17.715c9.658 0 17.396 7.913 17.396 17.715Zm-67.01 29.285c-14.759 0-44.34 7.522-44.34 22.5v11.786c0 3.536 2.85 4.286 6.334 4.286h76.012c3.484 0 6.334-.75 6.334-4.286v-11.786c0-14.978-29.58-22.5-44.34-22.5Zm43.464 1.425c.903.018 1.681.033 2.196.033 14.759 0 45 6.064 45 21.043v9.642c0 3.536-2.85 6.429-6.334 6.429h-32.812c.697-1.993 1.141-4.179 1.141-6.429l-.245-10.5c0-9.561-5.614-13.213-11.588-17.1-1.39-.904-2.799-1.821-4.162-2.828a.843.843 0 0 1-.059-.073.594.594 0 0 0-.194-.184c1.596-.139 4.738-.078 7.057-.033Z">
+
+                                        </path>
+                                    </svg>
+                                </span>
+                                {% else %}
+
+                                <span data-testid="default-user" data-icon="default-user" class="">
+                                    <svg viewBox="0 0 212 212" width="100%" height="100%" class="">
+                                        <path fill="#DFE5E7" class="background"
+                                            d="M106.251.5C164.653.5 212 47.846 212 106.25S164.653 212 106.25 212C47.846 212 .5 164.654.5 106.25S47.846.5 106.251.5z">
+                                        </path>
+                                        <g fill="#FFF">
+                                            <path class="primary"
+                                                d="M173.561 171.615a62.767 62.767 0 0 0-2.065-2.955 67.7 67.7 0 0 0-2.608-3.299 70.112 70.112 0 0 0-3.184-3.527 71.097 71.097 0 0 0-5.924-5.47 72.458 72.458 0 0 0-10.204-7.026 75.2 75.2 0 0 0-5.98-3.055c-.062-.028-.118-.059-.18-.087-9.792-4.44-22.106-7.529-37.416-7.529s-27.624 3.089-37.416 7.529c-.338.153-.653.318-.985.474a75.37 75.37 0 0 0-6.229 3.298 72.589 72.589 0 0 0-9.15 6.395 71.243 71.243 0 0 0-5.924 5.47 70.064 70.064 0 0 0-3.184 3.527 67.142 67.142 0 0 0-2.609 3.299 63.292 63.292 0 0 0-2.065 2.955 56.33 56.33 0 0 0-1.447 2.324c-.033.056-.073.119-.104.174a47.92 47.92 0 0 0-1.07 1.926c-.559 1.068-.818 1.678-.818 1.678v.398c18.285 17.927 43.322 28.985 70.945 28.985 27.678 0 52.761-11.103 71.055-29.095v-.289s-.619-1.45-1.992-3.778a58.346 58.346 0 0 0-1.446-2.322zM106.002 125.5c2.645 0 5.212-.253 7.68-.737a38.272 38.272 0 0 0 3.624-.896 37.124 37.124 0 0 0 5.12-1.958 36.307 36.307 0 0 0 6.15-3.67 35.923 35.923 0 0 0 9.489-10.48 36.558 36.558 0 0 0 2.422-4.84 37.051 37.051 0 0 0 1.716-5.25c.299-1.208.542-2.443.725-3.701.275-1.887.417-3.827.417-5.811s-.142-3.925-.417-5.811a38.734 38.734 0 0 0-1.215-5.494 36.68 36.68 0 0 0-3.648-8.298 35.923 35.923 0 0 0-9.489-10.48 36.347 36.347 0 0 0-6.15-3.67 37.124 37.124 0 0 0-5.12-1.958 37.67 37.67 0 0 0-3.624-.896 39.875 39.875 0 0 0-7.68-.737c-21.162 0-37.345 16.183-37.345 37.345 0 21.159 16.183 37.342 37.345 37.342z">
+                                            </path>
+                                        </g>
+                                    </svg>
+                                </span>
+
+                                {% endif %}
+                            </div>
+
+                            {% endif %}
+                            <!-- end if file check -->
+                            {% endif %}
+                            <!-- end if row['jid_user'] check -->
+                        </div>
+                    </div>
+                    <div class="chat-content">
+                        <div class="chat-info">
+                            <div class="chat-sender">
+                                {% if row['wa_con_display_name'] %}
+                                {{row['wa_con_display_name']}}
+                                {% else %}
+                                {{row['jid_user']}}
+                                {% endif %}
+                            </div>
+                            <div class="chat-time">
+                                {{epoch2time(row['msg_timestamp'],True,True)}}
+                            </div>
+                        </div>
+                        <div class="chat_last_msg">
+                            {% if row['msg_type'] == 0 %}
+                            <!-- This is a text msg -->
+                            {% if row['msg_data']|length > 35 %}
+                            {{row['msg_data'][:35]}}...
+                            {% else %}
+                            {{row['msg_data']}}
+                            {% endif %}
+
+                            {% elif row['msg_type'] == 1 %}
+                            <!-- This is image -->
+                            <div
+                                style="margin-right: 3px;display: inline-block;flex: none;color:#8696a0;vertical-align: top;">
+                                <span data-testid="status-image" data-icon="status-image" class="">
+                                    <svg viewBox="0 0 16 20" width="16" height="20" class="">
+                                        <path fill="currentColor"
+                                            d="M13.822 4.668H7.14l-1.068-1.09a1.068 1.068 0 0 0-.663-.278H3.531c-.214 0-.51.128-.656.285L1.276 5.296c-.146.157-.266.46-.266.675v1.06l-.001.003v6.983c0 .646.524 1.17 1.17 1.17h11.643a1.17 1.17 0 0 0 1.17-1.17v-8.18a1.17 1.17 0 0 0-1.17-1.169zm-5.982 8.63a3.395 3.395 0 1 1 0-6.79 3.395 3.395 0 0 1 0 6.79zm0-5.787a2.392 2.392 0 1 0 0 4.784 2.392 2.392 0 0 0 0-4.784z">
+                                        </path>
+                                    </svg></span>
+                            </div>
+                            <span
+                                style="overflow-y: hidden;text-overflow: ellipsis;white-space: nowrap; display: inline-block;flex-grow: 1;overflow-x: hidden;position: relative;">
+                                Photo
+                            </span>
+                            {% elif row['msg_type'] == 2 %}
+                            <!-- This is Audio -->
+                            <div
+                                style="margin-right: 3px;display: inline-block;flex: none;color:#8696a0;vertical-align: top;">
+                                <span data-testid="status-audio" data-icon="status-audio" class=""><svg
+                                        viewBox="0 0 14 17" width="14" height="17" class="" version="1.1"
+                                        id="_x39_7d25ebd-827b-4b31-aacf-70732ab74202" x="0" y="0">
+                                        <path fill="currentColor"
+                                            d="M7 2.33a5.983 5.983 0 0 0-6 5.96V13c-.02 1.09.85 1.98 1.94 2H5V9.67H2.33V8.33c0-2.58 2.09-4.67 4.67-4.67s4.67 2.09 4.67 4.67v1.33H9v5.33h2c1.09.02 1.98-.85 2-1.94V8.33c.01-3.3-2.66-5.99-5.96-6H7z">
+                                        </path>
+                                    </svg></span>
+                            </div>
+                            <span
+                                style="overflow-y: hidden;text-overflow: ellipsis;white-space: nowrap; display: inline-block;flex-grow: 1;overflow-x: hidden;position: relative;color:#667781;">
+                                Audio</span>
+                            {% elif row['msg_type'] == 3 %}
+                            <div
+                                style="margin-right: 3px;display: inline-block;flex: none;color: #8696a0;vertical-align: top;">
+                                <span data-testid="status-video" data-icon="status-video" class=""><svg
+                                        viewBox="0 0 16 20" width="16" height="20" class="">
+                                        <path fill="currentColor"
+                                            d="m15.243 5.868-3.48 3.091v-2.27c0-.657-.532-1.189-1.189-1.189H1.945c-.657 0-1.189.532-1.189 1.189v7.138c0 .657.532 1.189 1.189 1.189h8.629c.657 0 1.189-.532 1.189-1.189v-2.299l3.48 3.09v-8.75z">
+                                        </path>
+                                    </svg></span>
+                            </div>
+                            <span
+                                style="overflow-y: hidden;text-overflow: ellipsis;white-space: nowrap; display: inline-block;flex-grow: 1;overflow-x: hidden;position: relative;color:#667781;">
+                                Video</span>
+                            {% elif row['msg_type'] == 4 %}
+                            [+]Contact Card
+                            {% elif row['msg_type'] == 5 %}
+                            [!]Location
+                            {% elif row['msg_type'] == 7 %}
+                                [-]{% if (row['msg_sys_action_type'] == 27)%}
+                                        {% if (row['msg_from_me'] == 1) %}
+                                            You
+                                        {% else %}
+                                            {{ row['wa_con_display_name'] }}
+                                        {% endif %}
+                                        changed the group description.
+                                    {% else %}
+                                {% endif %}    
+                            {% elif row['msg_type'] == 9 %}
+                            <!-- Doc -->
+                            <div
+                                style="margin-right: 3px;display: inline-block;flex: none;color: #8696a0;vertical-align: top;">
+                                <span data-testid="status-document" data-icon="status-document" class=""><svg
+                                        viewBox="0 0 13 20" width="13" height="20" class="">
+                                        <path fill="currentColor"
+                                            d="M10.2 3H2.5C1.7 3 1 3.7 1 4.5v10.1c0 .7.7 1.4 1.5 1.4h7.7c.8 0 1.5-.7 1.5-1.5v-10C11.6 3.7 11 3 10.2 3zm-2.6 9.7H3.5v-1.3h4.1v1.3zM9.3 10H3.5V8.7h5.8V10zm0-2.7H3.5V6h5.8v1.3z">
+                                        </path>
+                                    </svg></span>
+                            </div>
+                            <span
+                                style="overflow-y: hidden;text-overflow: ellipsis;white-space: nowrap; display: inline-block;flex-grow: 1;overflow-x: hidden;position: relative;color:#667781;font-family:'HelveticaNeue Light'">
+                                {{row['msg_data'][:6]}}...{{row['msg_data'][-6:]}}
+                            </span>
+                            {% elif row['msg_type'] == 10 %}
+                            <!-- Missed call -->
+                            <div
+                                style="margin-right: 3px;color: #ea0038;display: inline-block;flex: none;vertical-align: top;">
+                                <span data-testid="status-miss" data-icon="status-miss" class="">
+                                    <svg viewBox="0 0 16 18" width="16" height="18" class="">
+                                        <path fill="currentColor"
+                                            d="M14.9 13.3C13.7 11.8 10.7 11 8 11s-5.6.8-6.9 2.3c-.6.7-.2 1.9.2 2.4.1.2.3.3.4.3 1.1 0 3-.6 3-.6.4-.2.6-.5.6-.8v-1.1c.6-1 4.6-1 5.4-.1V14.6c0 .2.1.4.2.5.1.1.3.2.4.3 0 0 1.9.6 3 .6.4 0 1.4-1.7.6-2.7zM4.2 5.9l4 3.9L13 5l-.8-.8-4.1 4L5 5.1h2.1V4h-4v4.1h1.1V5.9z">
+                                        </path>
+                                    </svg>
+                                </span>
+                            </div>
+                            <span
+                                style="overflow-y: hidden;text-overflow: ellipsis;white-space: nowrap; display: inline-block;flex-grow: 1;overflow-x: hidden;position: relative;color:#667781;">
+                                Missed voice call
+                            </span>
+                            {% else %}
+                            No idea {{row['msg_type']}}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div id="middle" class="pane middle">
+        <div class="_1PzAL" data-asset-chat-background-dark="true" style="opacity: 0.4;"></div>
+        <header class="middle-header">
+            <div class="middle-header-profile" title="Profile Details" role="button">
+                <div id="profile-pic" style="height: 40px; width: 40px;border-radius: 50%;position: relative;">
+                    <div id="default-avatar-2" width="40px" height="40px">
+                        <span data-testid="default-user" data-icon="default-user" class="">
+                            <svg viewBox="0 0 212 212" width="40" height="40" class="">
+                                <path fill="#DFE5E7" class="background"
+                                    d="M106.251.5C164.653.5 212 47.846 212 106.25S164.653 212 106.25 212C47.846 212 .5 164.654.5 106.25S47.846.5 106.251.5z">
+                                </path>
+                                <g fill="#FFF">
+                                    <path class="primary"
+                                        d="M173.561 171.615a62.767 62.767 0 0 0-2.065-2.955 67.7 67.7 0 0 0-2.608-3.299 70.112 70.112 0 0 0-3.184-3.527 71.097 71.097 0 0 0-5.924-5.47 72.458 72.458 0 0 0-10.204-7.026 75.2 75.2 0 0 0-5.98-3.055c-.062-.028-.118-.059-.18-.087-9.792-4.44-22.106-7.529-37.416-7.529s-27.624 3.089-37.416 7.529c-.338.153-.653.318-.985.474a75.37 75.37 0 0 0-6.229 3.298 72.589 72.589 0 0 0-9.15 6.395 71.243 71.243 0 0 0-5.924 5.47 70.064 70.064 0 0 0-3.184 3.527 67.142 67.142 0 0 0-2.609 3.299 63.292 63.292 0 0 0-2.065 2.955 56.33 56.33 0 0 0-1.447 2.324c-.033.056-.073.119-.104.174a47.92 47.92 0 0 0-1.07 1.926c-.559 1.068-.818 1.678-.818 1.678v.398c18.285 17.927 43.322 28.985 70.945 28.985 27.678 0 52.761-11.103 71.055-29.095v-.289s-.619-1.45-1.992-3.778a58.346 58.346 0 0 0-1.446-2.322zM106.002 125.5c2.645 0 5.212-.253 7.68-.737a38.272 38.272 0 0 0 3.624-.896 37.124 37.124 0 0 0 5.12-1.958 36.307 36.307 0 0 0 6.15-3.67 35.923 35.923 0 0 0 9.489-10.48 36.558 36.558 0 0 0 2.422-4.84 37.051 37.051 0 0 0 1.716-5.25c.299-1.208.542-2.443.725-3.701.275-1.887.417-3.827.417-5.811s-.142-3.925-.417-5.811a38.734 38.734 0 0 0-1.215-5.494 36.68 36.68 0 0 0-3.648-8.298 35.923 35.923 0 0 0-9.489-10.48 36.347 36.347 0 0 0-6.15-3.67 37.124 37.124 0 0 0-5.12-1.958 37.67 37.67 0 0 0-3.624-.896 39.875 39.875 0 0 0-7.68-.737c-21.162 0-37.345 16.183-37.345 37.345 0 21.159 16.183 37.342 37.345 37.342z">
+                                    </path>
+                                </g>
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="middle-header-profile-name" role="button" data-testid="conversation-info-header">
+                <div style="display:flex;flex-flow: column nowrap;">
+                    <div id="profile-name">
+                        <span
+                            style="overflow-y: hidden;text-overflow: ellipsis;white-space: nowrap; display: inline-block;flex-grow: 1;overflow-x: hidden;position: relative;"
+                            title="Click on chat from chat list" dir="auto">
+                            Chat Name
+                        </span>
+                    </div>
+                    <div style="min-height: 20px;font-size: 13px;line-height: 20px;color: var(--secondary);">
+                        <span
+                            id="profile-chat-subtitle"
+                            style="overflow-y: hidden;text-overflow: ellipsis;white-space: nowrap; display: inline-block;flex-grow: 1;overflow-x: hidden;position: relative;"
+                            title="Click on chat from chat list" dir="auto">
+                            I love WhatsAppViewer :3
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-left: 20px;flex:none;">
+                <div style="color: #54656f;display: flex;align-items: center;">
+                    <div data-testid="search-button">
+                        <div aria-disabled="false" role="button" tabindex="0" class="_26lC3" data-tab="6"
+                            title="Search…" aria-label="Search…"><span data-testid="search-alt" data-icon="search-alt"
+                                class=""><svg viewBox="0 0 24 24" width="24" height="24" class="">
+                                    <path fill="currentColor"
+                                        d="M15.9 14.3H15l-.3-.3c1-1.1 1.6-2.7 1.6-4.3 0-3.7-3-6.7-6.7-6.7S3 6 3 9.7s3 6.7 6.7 6.7c1.6 0 3.2-.6 4.3-1.6l.3.3v.8l5.1 5.1 1.5-1.5-5-5.2zm-6.2 0c-2.6 0-4.6-2.1-4.6-4.6s2.1-4.6 4.6-4.6 4.6 2.1 4.6 4.6-2 4.6-4.6 4.6z">
+                                    </path>
+                                </svg></span></div><span></span>
+                    </div>
+                    <div>
+                        <div data-testid="conversation-menu-button">
+                            <div aria-disabled="false" role="button" tabindex="0" class="_26lC3" data-tab="6"
+                                title="Menu" aria-label="Menu"><span data-testid="menu" data-icon="menu" class=""><svg
+                                        viewBox="0 0 24 24" width="24" height="24" class="">
+                                        <path fill="currentColor"
+                                            d="M12 7a2 2 0 1 0-.001-4.001A2 2 0 0 0 12 7zm0 2a2 2 0 1 0-.001 3.999A2 2 0 0 0 12 9zm0 6a2 2 0 1 0-.001 3.999A2 2 0 0 0 12 15z">
+                                        </path>
+                                    </svg></span></div><span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div id="conversation-panel-messages" class="conversation-panel-messages"
+            data-testid="conversation-panel-messages" tabindex="0">
+            <div id="all-msgs-from-chat">
+                <div>
+                    Click on a chat in the chat list, then the messages will be shown here :)
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<uwu class="uwu" id="uwu" description="uwu has hidden templates uwu">
+{% include 'templates_messages.html' %}
+</uwu>
+<script src="{{ url_for('static',filename='js/script.js') }}"></script>
+{% endblock %}

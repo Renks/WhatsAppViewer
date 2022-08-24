@@ -1,0 +1,178 @@
+<!-- MUST ADD message-in or message-out to the following div in js -->
+<template id="msg-txt">
+    <div data-temp-id="main" msgid="0000" msgchatrowid="0000" class="msg" msgkeyid="XRANDOM32DIGITLONGHASHSOMETHINGX"
+        msgjidrawstring="whosentit">
+        <div data-temp-id="2" id="msg-container">
+            <div data-temp-id="3" class="ifty">
+                <div class="msg22">
+                    <div data-temp-id="append-here" class="copyable-text" timesent="1234567891011">
+
+                        <div id="txt-msg-con" class="txt-msg-con">
+                            <span dir="ltr" class="visible selectable-text copyable-text">
+                                <span data-temp-id="my-text">
+                                    ..%[==TEXT NOT SET BY JAVASCRIPT==]%..err
+                                </span>
+                            </span>
+                            <span class="dsp-inline-b-v-align-mid wdth-lang"></span>
+                        </div>
+                    </div>
+                    <div data-temp-id="time-read-outer-div" class="time-read">
+                        <div class="clr-bubble-meta font-size-0-68-rem hght-15-px line-hght-15-px wht-space-nowrap _1WSmF"
+                            data-testid="msg-meta" role="button">
+                            <span data-temp-id="msg-time" class="dsp-inline-b v-align-top" dir="auto">
+                                00:00 pm
+                            </span>
+                            <!-- Read status div -->
+                            <div data-temp-id="msg-dblcheck-div" class="marg-l-3px dsp-inline-b clr-bubble-meta-ico">
+                                <!-- By removing .clr-icon-ack double tick ico becomes receieved -->
+                                <span data-temp-id="msg-dblcheck" aria-label=" Read " data-icon="msg-dblcheck"
+                                    class="clr-icon-ack">
+                                    <svg viewBox="0 0 16 15" width="16" height="15" class="">
+                                        <path fill="currentColor"
+                                            d="m15.01 3.316-.478-.372a.365.365 0 0 0-.51.063L8.666 9.879a.32.32 0 0 1-.484.033l-.358-.325a.319.319 0 0 0-.484.032l-.378.483a.418.418 0 0 0 .036.541l1.32 1.266c.143.14.361.125.484-.033l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0-.478-.372a.365.365 0 0 0-.51.063L4.566 9.879a.32.32 0 0 1-.484.033L1.891 7.769a.366.366 0 0 0-.515.006l-.423.433a.364.364 0 0 0 .006.514l3.258 3.185c.143.14.361.125.484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z">
+                                        </path>
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<!-- Must append to regular text message -->
+<template id="msg-reply">
+    <div data-temp-id="msg-reply-main" class="marg-346">
+        <div data-testid="quoted-message" class="wdth-100">
+            <div class="soft" role="button">
+                <span class="bg-color-1 tiny-bar"></span>
+                <div class="rply-con">
+                    <div class="flx-grow-over-hid">
+                        <div class="sender-name color-1" role="button">
+                            <span data-temp-id="sender-name" dir="auto" class="aJatt visible">SENDER
+                                NAME</span>
+                        </div>
+                        <div class="rply-to-msg" dir="ltr" role="button">
+                            <span data-temp-id="sender-text" dir="auto" class="quoted-mention visible">Reply to text
+                                message will appear
+                                here.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<!-- template image regular -->
+<template id="img-regular">
+    <div class="b-sizing-b-box wdth-max-246px pad-top-3px pad-r-3px aa0kojfi pad-l-3px pos-rel z-ind-1">
+        <div>
+            <div role="button" data-temp-id="img-outer"
+                class="flx-align-center b-tl-rad-6px b-tr-rad-6px b-br-rad-6px cqsf3vkf cur-point dsp-flx flx-just-con-center wdth-max-100 overflow-hid-x overflow-hid-y pos-rel">
+                <div class="pos-rel wdth-100 hght-100" data-testid="media-url-provider">
+                    <div class="pos-abs z-ind-1 dsp-flx flx-align-center flx-just-con-center wdth-100 hght-100">
+                        <img data-temp-id="img-thumb" loading="lazy"
+                            src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z//////////////8BGxsbGxwbHiEhHiotKC0qPTgzMzg9XUJHQkdCXY1YZ1hYZ1iNfZd7c3uXfeCwnJyw4P/Zztn////////////////CABEIAEEAMAMBIgACEQEDEQH/xAAwAAACAwEBAAAAAAAAAAAAAAADBAACBQYBAQADAQEAAAAAAAAAAAAAAAAAAQMCBP/aAAwDAQACEAMQAAAAITIYzTU9uJzuUBWucNSmejYa53ecDFRAzn3gMN31ExZLjVAz13PeriKTSjrPpsCZikkvh5ySLkkD/8QAJhAAAgMAAQMDBAMAAAAAAAAAAQIAAxEEEhMhBTFBIjJDURBCUv/aAAgBAQABPwAuw0kiI7MR7QuAcY5O5Sv9hBbQT9w2Blcas53024CcnprlnfTGCN7iGik+4g4tP+YtSKME5xZrj1Cem/e8flVJYEJ8mDIP3KjW40MMnPTLA3XuzhEqHYTjEtySLPmA4BLmJUgThAVhvPuYzPYdwzgoHR1MPG7dqlWJEB8TkFmIAM7zVfHmFj0kicE/S0ts6RsXnV4JfaXfQcjM7DS0UdQz9yio0gy1/Bmdf4zGRkwsniPpAw7EaLaXXARsKWs2ShO2mE6YcIwztICCFg+YIn44v8Gf/8QAHREAAwABBQEAAAAAAAAAAAAAAAECEAMRIDFBcf/aAAgBAgEBPwDlcOceGqm1NISNiB9v7j//xAAeEQACAgEFAQAAAAAAAAAAAAAAAQIREBIhMUFRcf/aAAgBAwEBPwCUaV5m7WYz1DO+CGzaGyxnnzH/2Q=="
+                            class="jciay5ix flx-grow-0 flx-shrink-0 flx-basis-auto img-thumb-blur" style="width: 100%;">
+                    </div>
+                    <div class="pos-abs z-ind-1 dsp-flx flx-align-center flx-just-con-center wdth-100 hght-100">
+                        <img data-temp-id="img" src="NO_SRC_ADDED" loading="lazy"
+                            class="jciay5ix flx-grow-0 flx-shrink-0 flx-basis-auto wdth-100"
+                            style="visibility: hidden;">
+                    </div>
+                </div>
+                <div class="pos-abs bottom-0 left-0 z-ind-2 wdth-100 hght-28px b-img-l-grad"></div>
+            </div>
+            <!-- Caption goes here hidden by default -->
+            <div 
+            data-temp-id="img-caption-div"
+            class="b-sizing-b-box wdth-max-330px pad-t-7px pad-r-4px pad-b-5px pad-l-6px" 
+            style="display:none;">
+                <div class="txt-msg-con">
+                    <span dir="ltr" class="visible selectable-text copyable-text">
+                        <span data-temp-id="img-caption">[IMAGE CAPTION GOES HERE]</span>
+                    </span>
+                    <span class="dsp-inline-b-v-align-mid wdth-lang"></span>
+                </div>
+            </div>
+            <div class="bottom-6px pos-abs right-8px z-ind-2">
+                <div class="clr-white font-size-0-68-rem hght-15-px line-hght-15-px wht-space-nowrap _1WSmF"
+                    data-testid="msg-meta">
+                    <span data-temp-id="time" class="dsp-inline-b v-align-top" dir="auto">3:49 am
+                    </span>
+                    <!-- Read status div -->
+                    <div data-temp-id="msg-dblcheck-div" class="marg-l-3px dsp-inline-b clr-bubble-meta-ico">
+                        <!-- By removing .clr-icon-ack double tick ico becomes receieved -->
+                        <span data-temp-id="msg-dblcheck" aria-label=" Read " data-icon="msg-dblcheck"
+                            class="clr-icon-ack">
+                            <svg viewBox="0 0 16 15" width="16" height="15" class="">
+                                <path fill="currentColor"
+                                    d="m15.01 3.316-.478-.372a.365.365 0 0 0-.51.063L8.666 9.879a.32.32 0 0 1-.484.033l-.358-.325a.319.319 0 0 0-.484.032l-.378.483a.418.418 0 0 0 .036.541l1.32 1.266c.143.14.361.125.484-.033l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0-.478-.372a.365.365 0 0 0-.51.063L4.566 9.879a.32.32 0 0 1-.484.033L1.891 7.769a.366.366 0 0 0-.515.006l-.423.433a.364.364 0 0 0 .006.514l3.258 3.185c.143.14.361.125.484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z">
+                                </path>
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<template id="forwarded">
+    <div class="b-sizing-b-box wdth-max-246px pad-top-3px pad-r-3px pad-b-3px pad-l-3px pos-rel z-ind-1">
+        <div>
+            <div 
+            data-temp-id="forwarded-div-outer"
+            class="marg-l-n-2px pad-top-3px pad-r-0 pad-b-3px pad-l-6px" style="text-align: left;">
+                <span data-testid="forwarded" data-icon="forwarded" class="clr-icon-lighter dsp-inline-b v-align-top">
+                    <svg width="16" height="16" viewBox="0 0 16 16" class="">
+                        <path
+                            d="M9.519 3.875a.54.54 0 0 1 .922-.382l4.03 4.034a.54.54 0 0 1 0 .764l-4.03 4.034a.54.54 0 0 1-.922-.383v-1.821c-3.398 0-5.886.97-7.736 3.074-.164.186-.468.028-.402-.211.954-3.449 3.284-6.67 8.138-7.363V3.875Z"
+                            fill="currentColor">
+                        </path>
+                    </svg>
+                </span>
+                <span class="_25font">Forwarded</span>
+            </div>
+</template>
+
+<template id="msg-sys-default">
+    <div role="button" class="overflow-hid-ellips">
+        <span data-temp-id="msg-sys-text" dir="ltr" class="visible">
+            This is a default system message.
+        </span>
+    </div>
+</template>
+
+<!-- System message template type: 67 END TO END ENCRYPTION -->
+<template id="msg-sys-end-2-end-enc">
+    <div role="button"><span>
+            <div class="dsp-inline-b marg-top-4px marg-top-4x-meowy-pad v-align-top clr-notf-e2e">
+                <span data-testid="lock-small" data-icon="lock-small" class="">
+                    <svg width="10" height="12" viewBox="0 0 10 12" class="">
+                        <path
+                            d="M5.008 1.6c1.375 0 2.501 1.074 2.586 2.427l.005.164v1.271h.158c.585 0 1.059.48 1.059 1.07v3.351c0 .59-.474 1.07-1.059 1.07h-5.5c-.582 0-1.057-.48-1.057-1.07V6.531c0-.59.474-1.069 1.058-1.069h.158V4.191c0-1.375 1.075-2.501 2.429-2.586l.163-.005Zm0 1.248c-.696 0-1.272.534-1.337 1.214l-.006.129-.002 1.271H6.35l.001-1.271c0-.653-.47-1.2-1.088-1.319l-.126-.018-.129-.006Z"
+                            fill="currentColor"></path>
+                    </svg></span>
+            </div><span dir="ltr" class="visible">Messages are end-to-end encrypted. No one outside
+                of this chat, not even WhatsApp, can read or listen to them. Click to learn more.</span>
+        </span></div>
+
+</template>
+<!-- System message template type: 67 ends here -->
+
+<template id="msg-sys">
+    <div data-temp-id="main" tabindex="-1" class="msg j-md4 focusable-list-item"
+        data-id="JID_RAW_STRING_AND_MSG_KEY_ID_GOES_HERE"><span></span>
+        <div data-temp-id="msg-notification-container" class="_msg-norm _sys-msg">
+            <div data-temp-id="append-ifty" class="ifty">
+
+                <span></span>
+                <div class="abs-r5-t7"></div>
+            </div>
+            <div class="dsp-flx wdth-min-0 hght-min-0 flx-just-con-start flx-dir-row flx-align-center div-empty"></div>
+        </div>
+    </div>
+</template>
