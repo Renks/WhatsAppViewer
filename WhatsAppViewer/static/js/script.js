@@ -62,7 +62,7 @@ const epoch2DateTime = (ts) => {
 const doesFileExist = async (urlToFile) => {
     const response = await fetch(urlToFile);
     console.log(`doesFileExist("${urlToFile}") response.status: ${response.status !== 404}`);
-    return (response.status === 200)?true:false;
+    return (response.status === 200) ? true : false;
 }
 const loadChat = async (chat_div) => {
     // DO NOTHING IF CLICKED ON ALREADY LOADED CHAT
@@ -109,7 +109,7 @@ async function handleMsgs(data, firstTime = false) {
 
     // STORING THE LAST MSG FOR Comparison etc.
     let lastMsg = {
-        'dateNoTime' : new Date() // will be used to compare if we should print date above msgs
+        'dateNoTime': new Date() // will be used to compare if we should print date above msgs
     };
 
     // load messages
@@ -118,40 +118,40 @@ async function handleMsgs(data, firstTime = false) {
         const msgDateTime = epoch2DateTime(msg['timestamp']);
         // Date message should be appeneded at the end so scroll below near the end
 
-        if (msg['message_type'] == 0) {
-            const tmpMsgTxtClone = tmpMsgTxt.content.cloneNode(true);
-            const tmpMsgTxtCloneApp = tmpMsgTxtClone.querySelector("div[data-temp-id='append-here']");
-            // INTIALIZING templateClone default attributes
-            tmpMsgTxtClone.querySelector("div[data-temp-id='main']").setAttribute("msgid", msg['_id']);
-            tmpMsgTxtClone.querySelector("div[data-temp-id='main']").setAttribute("msgchatrowid", msg['chat_row_id']);
-            tmpMsgTxtClone.querySelector("div[data-temp-id='main']").setAttribute("msgkeyid", msg['key_id']);
-            tmpMsgTxtClone.querySelector("div[data-temp-id='main']").setAttribute("msgjidrawstring", msg['jid_raw_string']);
-            tmpMsgTxtClone.querySelector("div[data-temp-id='main']").setAttribute("displayName", msg['wa_display_name']);
-            tmpMsgTxtClone.querySelector("div[data-temp-id='main']").setAttribute("timesent", msg['timestamp']);
+        const tmpMsgTxtClone = tmpMsgTxt.content.cloneNode(true);
+        const tmpMsgTxtCloneApp = tmpMsgTxtClone.querySelector("div[data-temp-id='append-here']");
+        const tmpMsgTxtCloneMain = tmpMsgTxtCloneMain;
+        // INTIALIZING templateClone default attributes
+        tmpMsgTxtCloneMain.setAttribute("msgid", msg['_id']);
+        tmpMsgTxtCloneMain.setAttribute("msgchatrowid", msg['chat_row_id']);
+        tmpMsgTxtCloneMain.setAttribute("msgkeyid", msg['key_id']);
+        tmpMsgTxtCloneMain.setAttribute("msgjidrawstring", msg['jid_raw_string']);
+        tmpMsgTxtCloneMain.setAttribute("displayName", msg['wa_display_name']);
+        tmpMsgTxtCloneMain.setAttribute("timesent", msg['timestamp']);
 
-            // need to add marg-bottom-2px if the current msg has same sender as the previous one
-            if (msg['sender_jid_row_id'] == lastMsg['sender_jid_row_id'] && msg['message_type'] != 7) {
-                // If the current msg has the same sender as the last msg
-                // and is not a system message then add margin bottom 2 class
-                tmpMsgTxtClone.querySelector("div[data-temp-id='main']").classList.add("marg-bottom-2px");
-                // Otherwise margin-bottom is 12px by default
-            }
-            // If its not a group chat message then set sender to #profile-name.innerText
-            if (msg['from_me'] == 1) {
-                tmpMsgTxtClone.querySelector("div[data-temp-id='main']").classList.add("message-out");
+        // need to add marg-bottom-2px if the current msg has same sender as the previous one
+        if (msg['sender_jid_row_id'] == lastMsg['sender_jid_row_id'] && msg['message_type'] != 7) {
+            // If the current msg has the same sender as the last msg
+            // and is not a system message then add margin bottom 2 class
+            tmpMsgTxtCloneMain.classList.add("marg-bottom-2px");
+            // Otherwise margin-bottom is 12px by default
+        }
+        if (msg['from_me'] == 1) {
+            tmpMsgTxtCloneMain.classList.add("message-out");
+        } else {
+            tmpMsgTxtCloneMain.classList.add("message-in");
+            // Removing Blue double tick if its group chat and message wasn't from me
+            if (msg['recipient_count'] > 0) {
+                // recipient_count seems like a nice way to know if its group message
+                tmpMsgTxtClone.querySelector("span[data-temp-id='msg-dblcheck']").classList.remove("clr-icon-ack");
             } else {
-                tmpMsgTxtClone.querySelector("div[data-temp-id='main']").classList.add("message-in");
-                // Removing Blue double tick if its group chat and message wasn't from me
-                if (msg['recipient_count'] > 0) {
-                    // recipient_count seems like a nice way to know if its group message
-                    tmpMsgTxtClone.querySelector("span[data-temp-id='msg-dblcheck']").classList.remove("clr-icon-ack");
-                } else {
-                    // NOT A GROUP CHAT MSG - REMOVE DOUBLE TICK SUPPORT
-                    tmpMsgTxtClone.querySelector("div[data-testid='msg-meta']").removeChild(tmpMsgTxtClone.querySelector("div[data-temp-id='msg-dblcheck-div']"))
-                }
+                // NOT A GROUP CHAT MSG - REMOVE DOUBLE TICK SUPPORT
+                tmpMsgTxtClone.querySelector("div[data-testid='msg-meta']").removeChild(tmpMsgTxtClone.querySelector("div[data-temp-id='msg-dblcheck-div']"))
             }
-            tmpMsgTxtClone.querySelector("span[data-temp-id='my-text']").innerText = msg['text_data'];
-            tmpMsgTxtClone.querySelector("span[data-temp-id='msg-time']").innerText = `${msgDateTime['hrs']}:${msgDateTime['mins']} ${msgDateTime['ampm']}`;
+        }
+        tmpMsgTxtClone.querySelector("span[data-temp-id='my-text']").innerText = msg['text_data'];
+        tmpMsgTxtClone.querySelector("span[data-temp-id='msg-time']").innerText = `${msgDateTime['hrs']}:${msgDateTime['mins']} ${msgDateTime['ampm']}`;
+        if (msg['message_type'] == 0) {
             // If current message is a text and is a reply to some other message — append the reply template to the current msg template
             if (msg['lookup_tables'] == 2) {
                 // Current message has "reply to message" attached with it
@@ -164,17 +164,16 @@ async function handleMsgs(data, firstTime = false) {
                     tmpMsgTxtClone.querySelector("span[data-temp-id='sender-name']").innerText = document.querySelector("#profile-name").innerText;
                     tmpMsgTxtClone.querySelector("span[data-temp-id='sender-text']").innerText = msg['message_quoted_text_data'];
                 }
-            }else if(msg['is_msg_forwarded']){
+            } else if (msg['is_msg_forwarded']) {
                 // Cloning the span parent instead of the whole forwarded template coz thats how it is in the web version
                 let tmpMsgForw = document.querySelector("#forwarded").content.cloneNode(true);
                 let tmpMsgForwOuterDiv = tmpMsgForw.querySelector("div[data-temp-id='forwarded-div-outer']");
                 // Need to remove all classes from the outer div and marg class
-                tmpMsgForwOuterDiv.setAttribute("class","marg-l-n-2px");
+                tmpMsgForwOuterDiv.setAttribute("class", "marg-l-n-2px");
                 tmpMsgTxtCloneApp.prepend(tmpMsgForwOuterDiv);
             }
             // Appending regular msg
             divAllMsgs.appendChild(tmpMsgTxtClone);
-
         } else if (msg['message_type'] == 1) {
             // If the msg is an image then copy the msg-sys template and prepend img-regular template to ifty
             const tmpMsgSysClone = tmpMsgSys.content.cloneNode(true);
@@ -194,7 +193,7 @@ async function handleMsgs(data, firstTime = false) {
                 }
             }
             // If the image has caption
-            if(msg['text_data']){
+            if (msg['text_data']) {
                 // display the caption div
                 tmpMsgImgClone.querySelector("div[data-temp-id='img-caption-div']").style = "display:block;";
                 tmpMsgImgClone.querySelector("span[data-temp-id='img-caption']").innerText = msg['text_data'];
@@ -242,13 +241,13 @@ async function handleMsgs(data, firstTime = false) {
 
         } else if (msg['message_type'] == 2) {
 
-        }else if (msg['message_type'] == 3) {
+        } else if (msg['message_type'] == 3) {
 
-        }else if (msg['message_type'] == 4) {
+        } else if (msg['message_type'] == 4) {
 
-        }else if (msg['message_type'] == 5) {
+        } else if (msg['message_type'] == 5) {
 
-        }else if (msg['message_type'] == 7) {
+        } else if (msg['message_type'] == 7) {
             // Prepare the system message template
             const tmpMsgSysClone = tmpMsgSys.content.cloneNode(true);
             // Lets center the msg
@@ -297,38 +296,41 @@ async function handleMsgs(data, firstTime = false) {
             // Finishing up for system messages
             divAllMsgs.appendChild(tmpMsgSysClone);
 
-        }else if (msg['message_type'] == 9) {
+        } else if (msg['message_type'] == 9) {
 
-        }else if (msg['message_type'] == 10) {
-                // Prepare the system message template
-                const tmpMsgSysClone = tmpMsgSys.content.cloneNode(true);
-                // Lets center the msg
-                tmpMsgSysClone.querySelector("div[data-temp-id='main']").classList.add("flx-row-center");
-    
-                // things will be added to ifty so why not make it global-ish
-                const ifty = tmpMsgSysClone.querySelector(".ifty");
-                // add padding 0.4 rem
-                ifty.setAttribute("style", "padding: 0.4rem;");
-                const msgTime = epoch2DateTime(msg['timestamp']);
-                const msgToAppend = `Missed voice call at ${msgTime.hrs}:${msgTime.mins} ${msgTime.ampm}`;
-                // clone template missed-call
-                const tmpMsgMissedCall = document.querySelector("#msg-missed-call").content.cloneNode(true);
-                tmpMsgMissedCall.querySelector("span[data-temp-id='missed-call-text']").innerText = msgToAppend;
-                
-                // Appendthe default message type template to main msg-sys template at the beginning (using prepend)
-                ifty.classList.add("bg-color-white");
-                ifty.prepend(tmpMsgMissedCall);
-                // Now we can grab span from template type msg-sys-default
-                // Finishing up for system messages
-                divAllMsgs.appendChild(tmpMsgSysClone);
+        } else if (msg['message_type'] == 10) {
+            // Prepare the system message template
+            const tmpMsgSysClone = tmpMsgSys.content.cloneNode(true);
+            // Lets center the msg
+            tmpMsgSysClone.querySelector("div[data-temp-id='main']").classList.add("flx-row-center");
 
-        }else if (msg['message_type'] == 15) {
+            // things will be added to ifty so why not make it global-ish
+            const ifty = tmpMsgSysClone.querySelector(".ifty");
+            // add padding 0.4 rem
+            ifty.setAttribute("style", "padding: 0.4rem;");
+            const msgTime = epoch2DateTime(msg['timestamp']);
+            const msgToAppend = `Missed voice call at ${msgTime.hrs}:${msgTime.mins} ${msgTime.ampm}`;
+            // clone template missed-call
+            const tmpMsgMissedCall = document.querySelector("#msg-missed-call").content.cloneNode(true);
+            tmpMsgMissedCall.querySelector("span[data-temp-id='missed-call-text']").innerText = msgToAppend;
 
-        }else if (msg['message_type'] == 16) {
+            // Appendthe default message type template to main msg-sys template at the beginning (using prepend)
+            ifty.classList.add("bg-color-white");
+            ifty.prepend(tmpMsgMissedCall);
+            // Now we can grab span from template type msg-sys-default
+            // Finishing up for system messages
+            divAllMsgs.appendChild(tmpMsgSysClone);
+
+        } else if (msg['message_type'] == 15) {
+
+        } else if (msg['message_type'] == 16) {
 
         }
-        // ADDING DATE MSG
-        if(msgDateTime.dateNoTime != lastMsg.dateNoTime){
+
+
+
+        // ADDING DATE MSG - MUST BE APPENDED AFTER REGULAR MSG
+        if (msgDateTime.dateNoTime != lastMsg.dateNoTime) {
             // Prepare the system message template
             const tmpMsgSysClone = tmpMsgSys.content.cloneNode(true);
             // Lets center the msg
@@ -345,7 +347,7 @@ async function handleMsgs(data, firstTime = false) {
             ifty.prepend(tmpMsgSysDefault);
             // Now we can grab span from template type msg-sys-default
             tmpMsgSysClone.querySelector("span[data-temp-id='msg-sys-text']").innerText = msgToAppend;
-            
+
             // Finishing up for system messages
             divAllMsgs.appendChild(tmpMsgSysClone);
         }
@@ -375,10 +377,10 @@ async function getChatMsgs(chat_id, from_limit = 0, limit = 50) {
 
 
 // Wait for doc to load and then listen for click even on chats
-document.addEventListener('DOMContentLoaded',async()=>{
+document.addEventListener('DOMContentLoaded', async () => {
     const allChats = document.querySelectorAll("div[typeof='chat']");
-    allChats.forEach(chat=>{
-        chat.onclick = (e)=>{
+    allChats.forEach(chat => {
+        chat.onclick = (e) => {
             console.log(chat);
             loadChat(chat);
         };
