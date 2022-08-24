@@ -364,6 +364,8 @@ html[dir] .bg-clr-notf-e2e {
 
 
 .bg-clr-notf-e2e{background-color: #ffeecd;color: #54656f;/*var(--notification-e2e-text);*/}
+.bg-pos-center{background-position: center;}
+.bg-size-cover{background-size: cover;}
 .font-size-0-68-rem {
     font-size: 0.6875rem;
 }
@@ -377,6 +379,10 @@ html[dir] .bg-clr-notf-e2e {
 .marg-l-3px{margin-left: 3px;}
 .marg-top-4px{margin-top: 4px;}
 .marg-346{margin: -3px -4px 6px -6px;}
+html[dir=ltr] .marg-r-3px {
+    /* Normally used for icons (svgs) */
+    margin-right: 3px;
+}
 html[dir=ltr] .marg-l-n-2px {
     margin-left: -2px;
 }
@@ -517,6 +523,11 @@ html[dir] ._25font {
 .flx-grow-0{flex-grow: 0;}
 .flx-shrink-0{flex-shrink: 0;}
 .flx-basis-auto{flex-basis: auto;}
+.flx-00a-over-hid{
+    /* Used for reply thumbnail */
+    flex: 0 0 auto;
+    overflow: hidden;
+}
 html:not([dir='rtl']) .left-0 {
     left: 0;
 }
@@ -555,6 +566,13 @@ html[dir=ltr] .aJatt {
     max-width: 80ch;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
+}
+.photo-icon{
+    /* Small photo icon by whatsapp */
+    display: inline-block;
+    flex: none;
+    color: var(--chatlist-icon);
+    vertical-align: top;
 }
 
 html[dir=ltr] .msg, html[dir=rtl] .msg {
@@ -795,6 +813,15 @@ html[dir=ltr] .aJatt {
     max-width: 80ch;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
+}
+html[dir] .rply-thumb-outer-div {
+    background-position: 50%;
+    background-size: cover;
+}
+.rply-thumb-outer-div{
+    position: relative;
+    width: 58px;
+    height: 100%;
 }
 
 html[dir=ltr] .msg, html[dir=rtl] .msg {

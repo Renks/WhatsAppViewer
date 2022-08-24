@@ -159,11 +159,43 @@ async function handleMsgs(data, firstTime = false) {
                 // Now "reply to message" can come in all shapes and forms
                 // for example it could be an image,video,location,doc etc
                 // So all the for "reply to message" type goes here
+                tmpMsgTxtCloneApp.prepend(tmpMsgTxtReply.content.cloneNode(true));
+                tmpMsgTxtClone.querySelector("span[data-temp-id='sender-name']").innerText = document.querySelector("#profile-name").innerText;
+                const tmpMsgSenderTxt = tmpMsgTxtClone.querySelector("span[data-temp-id='sender-text']");;
                 if (msg['message_quoted_message_type'] == 0) {
-                    // clone template msg-reply
-                    tmpMsgTxtCloneApp.prepend(tmpMsgTxtReply.content.cloneNode(true));
-                    tmpMsgTxtClone.querySelector("span[data-temp-id='sender-name']").innerText = document.querySelector("#profile-name").innerText;
-                    tmpMsgTxtClone.querySelector("span[data-temp-id='sender-text']").innerText = msg['message_quoted_text_data'];
+                    tmpMsgSenderTxt.innerText = msg['message_quoted_text_data'];
+                } else if (msg['message_quoted_message_type'] == 1) {
+                    // enable photo icon in reply template
+                    tmpMsgTxtClone.querySelector("div[data-temp-id='is-reply-to-img-ico']").style = "display:inline-block;";
+                    // enable photo thumb in reply template
+                    tmpMsgTxtClone.querySelector("div[data-temp-id='is-reply-to-img-thumb']").style = "display:block;";
+                    // Set Text to photo
+                    tmpMsgSenderTxt.innerText = "Photo";
+                    // Set thumb div url to base64 img
+                    tmpMsgTxtClone.querySelector("div[data-temp-id='reply-img-thumb-bg-url']").style = `
+                    background-image: url('data:image/jpeg;base64,${msg['thumbnail']}');"
+                    `;
+                    // Set thumb big url to base64 img
+                    if (doesFileExist('/static/'+msg['media_quoted_file_path'])) {
+
+                        tmpMsgTxtClone.querySelector("div[data-temp-id='reply-img-bg-url']").style = `
+                        background-image: url('/static/${msg['media_quoted_file_path']}');"
+                    `;
+                    }
+                } else if (msg['message_quoted_message_type'] == 2) {
+                    tmpMsgSenderTxt.innerText = "[Audio]";
+                } else if (msg['message_quoted_message_type'] == 3) {
+                    tmpMsgSenderTxt.innerText = "[Video]";
+                } else if (msg['message_quoted_message_type'] == 4) {
+                    tmpMsgSenderTxt.innerText = "[Contact]";
+                } else if (msg['message_quoted_message_type'] == 5) {
+                    tmpMsgSenderTxt.innerText = "[Location]";
+                } else if (msg['message_quoted_message_type'] == 7) {
+                    tmpMsgSenderTxt.innerText = "[System Message]";
+                } else if (msg['message_quoted_message_type'] == 9) {
+                    tmpMsgSenderTxt.innerText = "[Doc]";
+                } else {
+                    tmpMsgSenderTxt.innerText = "[Unkown]";
                 }
             } else if (msg['is_msg_forwarded']) {
                 // Cloning the span parent instead of the whole forwarded template coz thats how it is in the web version

@@ -52,7 +52,13 @@ message.message_add_on_flags,
 jid.user as jid_user,
 jid.raw_string as jid_raw_string,
 wa.wa_contacts.display_name as wa_display_name,
-message_thumbnail.thumbnail,
+CASE
+WHEN message.lookup_tables = 2 THEN (
+SELECT message_thumbnail.thumbnail FROM message_thumbnail WHERE
+message_thumbnail.message_row_id = (SELECT message._id FROM message WHERE message.key_id = message_quoted.key_id)
+)
+ELSE message_thumbnail.thumbnail
+END AS thumbnail,
 message_text.description as message_text_description,
 message_text.page_title as message_text_page_title,
 message_text.url as message_text_url,
@@ -88,7 +94,13 @@ message_text.description as message_text_description,
 message_text.page_title as message_text_page_title,
 message_text.url as message_text_url,
 message_text.preview_type as message_text_preview_type,
-message_thumbnail.thumbnail,
+CASE
+WHEN message.lookup_tables = 2 THEN (
+SELECT message_thumbnail.thumbnail FROM message_thumbnail WHERE
+message_thumbnail.message_row_id = (SELECT message._id FROM message WHERE message.key_id = message_quoted.key_id)
+)
+ELSE message_thumbnail.thumbnail
+END AS thumbnail,
 message_media.file_path as media_file_path,
 message_media.file_size as media_file_size,
 message_media.media_key as media_media_key,
