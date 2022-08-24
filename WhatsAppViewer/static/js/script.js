@@ -47,13 +47,17 @@ const epoch2DateTime = (ts) => {
     hours = hours ? hours : 12;
     minutes = minutes < 10 ? '0' + minutes : minutes;
     seconds = seconds < 10 ? '0' + seconds : seconds;
+    const date2 = ('0' + date.getDate()).slice(-2);
+    const month2 = ('0' + (date.getMonth() + 1)).slice(-2);
+    const year2 = date.getFullYear();
     return {
         'date': date,
         'hrs': hours,
         'mins': minutes,
         'secs': seconds,
-        'ampm': ampm
-    }
+        'ampm': ampm,
+        'dateNoTime': `${date2}/${month2}/${year2}`
+    };
 }
 const doesFileExist = async (urlToFile) => {
     const response = await fetch(urlToFile);
@@ -104,10 +108,16 @@ async function handleMsgs(data, firstTime = false) {
     if (firstTime) { divAllMsgs.innerHTML = ""; }
 
     // STORING THE LAST MSG FOR Comparison etc.
-    let lastMsg = {}
+    let lastMsg = {
+        'dateNoTime' : new Date() // will be used to compare if we should print date above msgs
+    };
 
     // load messages
     for (msg of data) {
+        // Add date notification text if current msg's date is different than the lastMsg
+        const msgDateTime = epoch2DateTime(msg['timestamp']);
+        // Date message should be appeneded at the end so scroll below near the end
+
         if (msg['message_type'] == 0) {
             const tmpMsgTxtClone = tmpMsgTxt.content.cloneNode(true);
             const tmpMsgTxtCloneApp = tmpMsgTxtClone.querySelector("div[data-temp-id='append-here']");
@@ -141,7 +151,6 @@ async function handleMsgs(data, firstTime = false) {
                 }
             }
             tmpMsgTxtClone.querySelector("span[data-temp-id='my-text']").innerText = msg['text_data'];
-            msgDateTime = epoch2DateTime(msg['timestamp']);
             tmpMsgTxtClone.querySelector("span[data-temp-id='msg-time']").innerText = `${msgDateTime['hrs']}:${msgDateTime['mins']} ${msgDateTime['ampm']}`;
             // If current message is a text and is a reply to some other message — append the reply template to the current msg template
             if (msg['lookup_tables'] == 2) {
@@ -218,7 +227,6 @@ async function handleMsgs(data, firstTime = false) {
             }
 
             // get time 
-            msgDateTime = epoch2DateTime(msg['timestamp']);
             tmpMsgImgClone.querySelector("span[data-temp-id='time']").innerText = `${msgDateTime['hrs']}:${msgDateTime['mins']} ${msgDateTime['ampm']}`;
 
             const ifty = tmpMsgSysClone.querySelector(".ifty");
@@ -292,14 +300,59 @@ async function handleMsgs(data, firstTime = false) {
         }else if (msg['message_type'] == 9) {
 
         }else if (msg['message_type'] == 10) {
+                // Prepare the system message template
+                const tmpMsgSysClone = tmpMsgSys.content.cloneNode(true);
+                // Lets center the msg
+                tmpMsgSysClone.querySelector("div[data-temp-id='main']").classList.add("flx-row-center");
+    
+                // things will be added to ifty so why not make it global-ish
+                const ifty = tmpMsgSysClone.querySelector(".ifty");
+                // add padding 0.4 rem
+                ifty.setAttribute("style", "padding: 0.4rem;");
+                const msgTime = epoch2DateTime(msg['timestamp']);
+                const msgToAppend = `Missed voice call at ${msgTime.hrs}:${msgTime.mins} ${msgTime.ampm}`;
+                // clone template missed-call
+                const tmpMsgMissedCall = document.querySelector("#msg-missed-call").content.cloneNode(true);
+                tmpMsgMissedCall.querySelector("span[data-temp-id='missed-call-text']").innerText = msgToAppend;
+                
+                // Appendthe default message type template to main msg-sys template at the beginning (using prepend)
+                ifty.classList.add("bg-color-white");
+                ifty.prepend(tmpMsgMissedCall);
+                // Now we can grab span from template type msg-sys-default
+                // Finishing up for system messages
+                divAllMsgs.appendChild(tmpMsgSysClone);
 
         }else if (msg['message_type'] == 15) {
 
         }else if (msg['message_type'] == 16) {
 
         }
+        // ADDING DATE MSG
+        if(msgDateTime.dateNoTime != lastMsg.dateNoTime){
+            // Prepare the system message template
+            const tmpMsgSysClone = tmpMsgSys.content.cloneNode(true);
+            // Lets center the msg
+            tmpMsgSysClone.querySelector("div[data-temp-id='main']").classList.add("flx-row-center");
+            // things will be added to ifty so why not make it global-ish
+            const ifty = tmpMsgSysClone.querySelector(".ifty");
+            // add padding 0.4 rem
+            ifty.setAttribute("style", "padding: 0.4rem;");
+            const msgToAppend = `${msgDateTime.dateNoTime}`;
+            // clone template msg-sys-default
+            const tmpMsgSysDefault = document.querySelector("#msg-sys-default").content.cloneNode(true);
+            // Appendthe default message type template to main msg-sys template at the beginning (using prepend)
+            ifty.classList.add("bg-color-white");
+            ifty.prepend(tmpMsgSysDefault);
+            // Now we can grab span from template type msg-sys-default
+            tmpMsgSysClone.querySelector("span[data-temp-id='msg-sys-text']").innerText = msgToAppend;
+            
+            // Finishing up for system messages
+            divAllMsgs.appendChild(tmpMsgSysClone);
+        }
+
         // IMPORTANT set current msg as lastMsg which will be used to compare with msg in the next iteration
         lastMsg = msg;
+        lastMsg.dateNoTime = msgDateTime.dateNoTime;
     }
 }
 

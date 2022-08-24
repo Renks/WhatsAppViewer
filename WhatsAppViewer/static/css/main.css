@@ -139,6 +139,7 @@
     --overlay-rgb: 11,20,26;
     --icon-lighter: #8696a0;
     --forwarded-indicator-text: #8696a0;
+    --danger: #ea0038;
 }
 body {
     /* font-family: Arial, Helvetica, sans-serif; */

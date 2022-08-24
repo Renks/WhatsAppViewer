@@ -342,6 +342,7 @@ html[dir] .msg {
 }
 /* Trying to match whatsappweb css here */
 .color-1 {color: #06cf9c!important;}
+.clr-danger{color: var(--danger);}
 .clr-white{color: rgba(255,255,255,.9);/*rgba(var(--inverse-rgb),.9);*/}
 .clr-bubble-meta {
     color: #667781;
@@ -372,6 +373,7 @@ html[dir] .bg-clr-notf-e2e {
 .wht-space-nowrap{white-space: nowrap;}
 .dsp-inline-b{display: inline-block;}
 .v-align-top{vertical-align: top;}
+.v-align-neg-4px{vertical-align: -4px;}
 .marg-l-3px{margin-left: 3px;}
 .marg-top-4px{margin-top: 4px;}
 .marg-346{margin: -3px -4px 6px -6px;}

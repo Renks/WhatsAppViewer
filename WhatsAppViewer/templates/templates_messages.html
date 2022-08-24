@@ -87,10 +87,8 @@
                 <div class="pos-abs bottom-0 left-0 z-ind-2 wdth-100 hght-28px b-img-l-grad"></div>
             </div>
             <!-- Caption goes here hidden by default -->
-            <div 
-            data-temp-id="img-caption-div"
-            class="b-sizing-b-box wdth-max-330px pad-t-7px pad-r-4px pad-b-5px pad-l-6px" 
-            style="display:none;">
+            <div data-temp-id="img-caption-div"
+                class="b-sizing-b-box wdth-max-330px pad-t-7px pad-r-4px pad-b-5px pad-l-6px" style="display:none;">
                 <div class="txt-msg-con">
                     <span dir="ltr" class="visible selectable-text copyable-text">
                         <span data-temp-id="img-caption">[IMAGE CAPTION GOES HERE]</span>
@@ -123,9 +121,8 @@
 <template id="forwarded">
     <div class="b-sizing-b-box wdth-max-246px pad-top-3px pad-r-3px pad-b-3px pad-l-3px pos-rel z-ind-1">
         <div>
-            <div 
-            data-temp-id="forwarded-div-outer"
-            class="marg-l-n-2px pad-top-3px pad-r-0 pad-b-3px pad-l-6px" style="text-align: left;">
+            <div data-temp-id="forwarded-div-outer" class="marg-l-n-2px pad-top-3px pad-r-0 pad-b-3px pad-l-6px"
+                style="text-align: left;">
                 <span data-testid="forwarded" data-icon="forwarded" class="clr-icon-lighter dsp-inline-b v-align-top">
                     <svg width="16" height="16" viewBox="0 0 16 16" class="">
                         <path
@@ -175,4 +172,20 @@
             <div class="dsp-flx wdth-min-0 hght-min-0 flx-just-con-start flx-dir-row flx-align-center div-empty"></div>
         </div>
     </div>
+</template>
+
+<template id="msg-missed-call">
+    <span><span>
+            <div class="dsp-inline-b marg-top-4x-meowy-pad v-align-neg-4px">
+                <span data-testid="miss" data-icon="miss" class="clr-danger">
+                    <svg
+                        viewBox="0 0 20 17" width="20" height="17" class="">
+                        <path fill="currentColor"
+                            d="M18.2 12.1c-1.5-1.8-5-2.7-8.2-2.7s-6.7 1-8.2 2.7c-.7.8-.3 2.3.2 2.8.2.2.3.3.5.3 1.4 0 3.6-.7 3.6-.7.5-.2.8-.5.8-1v-1.3c.7-1.2 5.4-1.2 6.4-.1l.1.1v1.3c0 .2.1.4.2.6.1.2.3.3.5.4 0 0 2.2.7 3.6.7.2 0 1.4-2 .5-3.1zM5.4 3.2l4.7 4.6 5.8-5.7-.9-.8L10.1 6 6.4 2.3h2.5V1H4.1v4.8h1.3V3.2z">
+                        </path>
+                    </svg></span></div>
+                    <span data-temp-id="missed-call-text" dir="ltr" class="visible">
+                        Missed voice call at 00:00 pm
+                    </span>
+        </span></span>
 </template>
