@@ -3,9 +3,9 @@
 WhatsAppViewer app that parses android whatsapp database and displays it in web browser
 
 ## Installation
-Make sure you have flask installed
-pip install flask
+`pip install -r requirements.txt`
 
 ## Usage
-python wa.py
-Goto https://localhost:5001
+`python wa.py`
+
+Goto [localhost:5001](https://localhost:5001) in a web browser
