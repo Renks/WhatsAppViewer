@@ -47,6 +47,7 @@ const epoch2DateTime = (ts) => {
     hours = hours ? hours : 12;
     minutes = minutes < 10 ? '0' + minutes : minutes;
     seconds = seconds < 10 ? '0' + seconds : seconds;
+    // Getting only date in DD/MM/YYYY format
     const date2 = ('0' + date.getDate()).slice(-2);
     const month2 = ('0' + (date.getMonth() + 1)).slice(-2);
     const year2 = date.getFullYear();
@@ -120,7 +121,7 @@ async function handleMsgs(data, firstTime = false) {
 
         const tmpMsgTxtClone = tmpMsgTxt.content.cloneNode(true);
         const tmpMsgTxtCloneApp = tmpMsgTxtClone.querySelector("div[data-temp-id='append-here']");
-        const tmpMsgTxtCloneMain = tmpMsgTxtCloneMain;
+        const tmpMsgTxtCloneMain = tmpMsgTxtClone.querySelector("div[data-temp-id='main']");
         // INTIALIZING templateClone default attributes
         tmpMsgTxtCloneMain.setAttribute("msgid", msg['_id']);
         tmpMsgTxtCloneMain.setAttribute("msgchatrowid", msg['chat_row_id']);
