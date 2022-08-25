@@ -186,6 +186,7 @@ async function handleMsgs(data, firstTime = false) {
                     tmpMsgSenderTxt.innerText = "[Audio]";
                 } else if (msg['message_quoted_message_type'] == 3) {
                     tmpMsgSenderTxt.innerText = "[Video]";
+                    
                 } else if (msg['message_quoted_message_type'] == 4) {
                     tmpMsgSenderTxt.innerText = "[Contact]";
                 } else if (msg['message_quoted_message_type'] == 5) {
