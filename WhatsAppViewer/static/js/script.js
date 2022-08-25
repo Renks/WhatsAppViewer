@@ -249,7 +249,7 @@ async function handleMsgs(data, firstTime = false) {
             // Lets check if we have the larger version of the img
             if (msg['media_file_path'] != null) {
                 const fileExists = await doesFileExist("/static/" + msg['media_file_path']);
-                console.log(`Value of fileExists=${fileExists}`)
+                // console.log(`Value of fileExists=${fileExists}`)
                 if (fileExists === true) {
                     // If we have the larger version of the image then show it by setting its width to 100% first
                     let largerImg = tmpMsgImgClone.querySelector("img[data-temp-id='img']");

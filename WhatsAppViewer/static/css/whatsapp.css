@@ -410,9 +410,6 @@ html:not([dir='rtl']) .pad-r-3px {
 }
 .pad-b-3px{padding-bottom: 3px;}
 
-html:not([dir='rtl']) .marg-top-4x-meowy-pad {
-    margin-right: 4px;
-}
 .pos-rel{position: relative;}
 .pos-abs{position: absolute;}
 .z-ind-1{z-index: 1;}
@@ -457,13 +454,6 @@ html:not([dir='rtl']) .b-bl-rad-6px {
 .hght-100{
     height: 100%;
 }
-
-html[lang=en] .wdth-lang {
-    width: 74px;
-}
-.wdth-lang {
-    width: 72px;
-}
 .wdth-100 {
     width: 100%;
 }
@@ -473,29 +463,9 @@ html[lang=en] .wdth-lang {
 .wdth-max-330px {
     max-width: 330px;
 }
-html[dir] .message-out .soft {
-    background-color: var(--outgoing-background-deeper);
-}
-html[dir] .soft {
-    background-color: rgba(var(--overlay-rgb),.05);
-    border-radius: 7.5px;
-}
-
-.soft {
-    position: relative;
-    display: flex;
-    overflow: hidden;
-}
-html[dir=ltr] .tiny-bar {
-    border-top-left-radius: 7.5px;
-    border-bottom-left-radius: 7.5px;
-}
-.tiny-bar {
-    flex: none;
-    width: 4px;
-}
-html[dir=ltr] .rply-con {
-    padding: 4px 12px 8px 8px;
+.wdth-max-246px{max-width: 246px;}
+.wdth-max-media{
+    max-width: calc(var(--width-msg-bubble-with-media) - 6px);
 }
 html[dir] ._25font {
     margin: 0 3px;
@@ -506,15 +476,6 @@ html[dir] ._25font {
     font-size: 12.5px;
     font-style: italic;
     color: var(--forwarded-indicator-text);
-}
-.rply-con {
-    display: flex;
-    flex-grow: 1;
-    align-items: center;
-    min-height: 42px;
-    max-height: 82px;
-    overflow: hidden;
-    padding-left: 0.4rem; /* BEWARE THIS ISN'T PRESENT IN THE ORIGINAL! */
 }
 .flx-grow-over-hid{
     flex-grow: 1;
@@ -533,40 +494,6 @@ html:not([dir='rtl']) .left-0 {
 }
 .bottom-0{bottom:0;}
 .bottom-6px{bottom:6px;}
-.sender-name {
-    display: inline-flex;
-    max-width: 100%;
-    font-size: 12.8px;
-    font-weight: 500;
-    line-height: 22px;
-    color: var(--teal-lighter);
-}
-html[dir=ltr] .aJatt {
-    padding-left: 2px;
-    margin-left: -2px;
-}
-
-.aJatt {
-    flex: 0 1 auto;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.rply-to-msg{
-    display: -webkit-box;
-    max-height: 60px;
-    overflow: hidden;
-    font-size: 13.2px;
-    line-height: 20px;
-    color: var(--quoted-message-text);
-    text-overflow: ellipsis;
-    word-wrap: break-word;
-    /* white-space: pre-wrap;  */ /* Im using max-width: UNITch instead*/
-    max-width: 80ch;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-}
 .photo-icon{
     /* Small photo icon by whatsapp */
     display: inline-block;
@@ -654,11 +581,20 @@ html[dir] .div-empty {
     top: 50%;
     width: 101px;
 }
+.dsp-flx {
+    display: flex;
+}
 .flx-dir-row {
     flex-direction: row;
 }
-.dsp-flx {
-    display: flex;
+.flx-align-center {
+    align-items: center;
+}
+.flx-just-con-start {
+    justify-content: flex-start;
+}
+.flx-just-con-center {
+    justify-content: center;
 }
 .hght-min-0 {
     min-height: 0;
@@ -666,35 +602,7 @@ html[dir] .div-empty {
 .wdth-min-0 {
     min-width: 0;
 }
-.flx-align-center {
-    align-items: center;
-}
-.flx-just-con-start {
-    justify-content: flex-start;
-}/* Trying to match whatsappweb css here */
-.color-1 {color: #06cf9c!important;}
-.clr-bubble-meta {
-    color: #667781;
-    /* var(--bubble-meta); */
-}
-.clr-bubble-meta-ico{
-    color: #8696a0; /* var(--bubble-meta-icon); */
-}
-.clr-icon-ack{
-    color: #53bdeb;/*var(--icon-ack); */
-}
-.clr-notf-e2e{color: #54656f;/*var(--notification-e2e-icon);*/}
-.bg-color-1{background-color: #06cf9c!important;}
-.bg-color-white{background-color: #fff!important;}
-html[dir] .bg-clr-notf-e2e {
-    background-color: #ffeecd;/*var(--notification-e2e-background)*/;
-}
 
-
-.bg-clr-notf-e2e{background-color: #ffeecd;color: #54656f;/*var(--notification-e2e-text);*/}
-.font-size-0-68-rem {
-    font-size: 0.6875rem;
-}
 .b-img-l-grad{
     background-image: linear-gradient(to top,rgba(var(--overlay-rgb),.5),rgba(var(--overlay-rgb),0));
 }
@@ -713,32 +621,6 @@ html:not([dir='rtl']) .marg-top-4x-meowy-pad {
 
 html:not([dir='rtl']) .right-8px {
     right: 8px;
-}
-
-
-.shadow-b{box-shadow: 0 1px 0.5px #0b141a21;}
-.time-read {
-    float: right;
-    margin: -10px 0 -5px 4px;
-    position: relative;
-    z-index: 10;
-}
-.txt-msg-con{
-    position: relative;
-    overflow-wrap: break-word;
-    /* white-space: pre-wrap; */
-}
-.visible{visibility: visible;}
-.selectable-text {
-    -webkit-user-select: text;
-    -moz-user-select: text;
-    -ms-user-select: text;
-    user-select: text;
-}
-.dsp-inline-b-v-align-mid{
-    display: inline-block;
-    width: 54px;
-    vertical-align: middle;
 }
 html[lang=en] .wdth-lang {
     width: 74px;
@@ -882,94 +764,7 @@ html[dir=ltr] .msg, html[dir=rtl] .msg {
         padding-left: 7%;
     }
 }
-html[dir=ltr] ._msg, html[dir=rtl] ._msg {
-    padding-right: 9%;
-    padding-left: 9%;
-}
-html[dir] ._msg {
-    margin-bottom: 12px;
-}
-.flx-row-center {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
 
-html[dir] ._msg-norm:last-of-type {
-    margin-bottom: 0;
-}
-
-html[dir] ._sys-msg {
-    padding: 5px 12px 6px;
-    text-align: center;
-    text-shadow: 0 1px 0 rgba(var(--inverse-rgb),.4);
-    background-color: var(--system-message-background);
-    border-radius: 7.5px;
-    box-shadow: 0 1px 0.5px rgba(var(--shadow-rgb),.13);
-}
-html[dir] ._msg-norm {
-    border-radius: 7.5px;
-}
-._sys-msg {
-    box-sizing: border-box;
-    display: inline-block;
-    flex: none;
-    max-width: 100%!important;
-    font-size: 12.5px;
-    line-height: 21px;
-    color: var(--system-message-text);
-}
-._msg-norm {
-    position: relative;
-    flex: none;
-    font-size: 14.2px;
-    line-height: 19px;
-    color: var(--message-primary);
-}
-.overflow-hid-ellips{
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-html[dir=ltr] .abs-r5-t7 {
-    right: 5px;
-}
-.abs-r5-t7 {
-    position: absolute;
-    top: 7px;
-}
-
-html[dir] .div-empty {
-    margin-top: -13px;
-    padding: 0 4px;
-}
-
-.div-empty {
-    position: absolute;
-    top: 50%;
-    width: 101px;
-}
-.flx-dir-row {
-    flex-direction: row;
-}
-.dsp-flx {
-    display: flex;
-}
-.hght-min-0 {
-    min-height: 0;
-}
-.wdth-min-0 {
-    min-width: 0;
-}
-.wdth-max-246px{max-width: 246px;}
-.flx-align-center {
-    align-items: center;
-}
-.flx-just-con-start {
-    justify-content: flex-start;
-}
-.flx-just-con-center {
-    justify-content: center;
-}
 @media screen and (max-width: 900px) {
     #msg-container {
         max-width: 95%;
