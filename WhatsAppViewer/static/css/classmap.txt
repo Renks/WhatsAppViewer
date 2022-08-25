@@ -1,0 +1,156 @@
+WAwebname : myown css class name
+
+ldL67 : pane
+_2i3T7 : left
+_3sh5K : middle
+
+ln8gz9je: wdth-100 (already defined below)
+
+_1beEj : time-read
+gq1t1y46 : clr-bubble-meta 
+lak21jic : font-size-0-68-rem
+e4p1bexh : hght-15-px
+cr2cog7z : line-hght-15-px
+le5p0ye3 : wht-space-nowrap
+_1WSmF : _1WSmF (NOT FOUND)
+
+l7jjieqr : dsp-inline-b
+fewfhwl7 : v-align-top
+
+do8e0lj9 : marg-l-3px
+k6y3xtnu : clr-bubble-meta-ico
+
+_3l4_3 : clr-icon-ack
+
+_2Fo6S : marg-346
+
+_1Gy50 : txt-msg-con
+i0jNr : visible
+selectable-text : same
+copyable-text : same (NOT FOUND)
+
+_3hPBO : wdth-100
+_3o5fT : soft
+bg-color-1 : same
+_3jrlM : tiny-bar
+-gKwI : rply-con
+E_Te0 : flx-grow-over-hid
+hooVq : sender-name
+color-1 : same
+a71At : aJatt
+i0jNr : visible
+
+eWQsx : rply-to-msg
+
+quoted-mention : same (NOT FOUND)
+_2nY6U : chat
+vq6sj : cur-point
+_2_TVt : active
+_20bHr : dsp-inline-b-v-align-mid
+_2ui2p : wdth-lang (width based on language)
+
+_1-FMR : msg
+_3Zpy8 : marg-bottom-2px
+_15WYQ : flx-row-center
+_1-lf9 : _msg-norm
+NQl4z : _sys-msg
+ItfyB : ifty
+_3nbHh : shadow-b 
+_22Msk : msg22
+
+_2ad1k : overflow-hid-ellips
+_39T_J : abs-r5-t7
+
+p357zi0d : dsp-flx
+ktfrpxia : wdth-min-0
+nu7pwgvd : hght-min-0
+fhf7t426 : flx-just-con-start
+sap93d0t : flx-dir-row
+gndfcl4n : flx-align-center
+_1m68F : div-empty
+
+qt60bha0 : marg-top-4px
+mw4yctpw : marg-top-4x-meowy-pad
+kzrzzy77 : clr-notf-e2e
+u4mkB : bg-clr-notf-e2e
+
+## Img specific classes
+cm280p3y : b-sizing-b-box
+kbtdaxqp : wdth-max-246px
+ocd2b0bc : pad-top-3px
+folpon7g : pad-r-3px
+aa0kojfi : pad-b-3px
+snweb893 : pad-l-3px
+g0rxnol2 : pos-rel
+jnl3jror : z-ind-1
+l8fojup5 : b-tl-rad-6px
+paxyh2gw : b-tr-rad-6px
+sfeitywo : b-br-rad-6px
+cqsf3vkf : b-bl-rad-6px
+ajgl1lbb : same as cur-point (above)
+ac2vgrno : flx-just-con-center
+laorhtua : wdth-max-100
+gfz4du6o : overflow-hid-x
+r7fjleex : overflow-hid-y
+ppled2lx : hght-100
+lhggkp7q : pos-abs
+jciay5ix : (FOUND BUT EMPTY)
+tvf2evcx : flx-grow-0
+oq44ahr5 : flx-shrink-0
+lb5m6g5c : flx-basis-auto
+fsmudgz7 : img-thumb-blur
+jxacihee : bottom-0
+tkdu00h0 : left-0
+b9fczbqn : z-ind-2
+he7yjufn : hght-28px
+e1lnay39 : b-img-l-grad
+j-md4 : (NOT FOUND)
+
+## Img time
+dpkuihx7 : bottom-6px
+j2mzdvlq : right-8px
+pp8r7oc8 : clr-white
+_1pC3e : (NOT FOUND)
+
+## Forwarded
+_2tsYl : marg-l-n-2px
+f9ovudaz : pad-r-0
+mhcwslh8 : pad-l-6px
+_2suca : clr-icon-lighter
+_25ont : _25font
+
+## Img caption
+cbjz30lg : wdth-max-330px
+esbfogcw : pad-t-7px
+jfqm35v0 : pad-r-4px
+bxcbqipq : pad-b-5px
+
+# missed call
+mr0xwlll : v-align-neg-4px
+mvxzr2tb : clr-danger
+
+# reply-to-img (icon)
+_2tHs0 : photo-icon
+status-image : (NOT FOUND)
+_3Bn0t : marg-r-3px (Normally used for icons svgs)
+
+# reply-to-img (thumbnail)
+_3yqEq : flx-00a-over-hid
+_2W5Qi : rply-thumb-outer-div
+t3g6t33p : bg-pos-center
+qnwaluaf : bg-size-cover
+
+# video
+ktbp76dp : width-max-bubble-media
+eqlnm1ad : bg-clr-gray-600
+oxaw94s0 : bef-pos-abs (:before position absolute)
+a8g7dr2m : bef-t-0 (:before top 0 )
+daumfqvy : bef-l-0 (:before left 0)
+pirim95u : bef-z-ind-2
+kkl0lao1 : bef-wdth-100
+q80nfrzu : bef-hght-100
+lij4d1x3 : bef-con-empty
+nnoyk08r : bef-opa-03
+
+# video caption
+bkoknyjm : wdth-max-media

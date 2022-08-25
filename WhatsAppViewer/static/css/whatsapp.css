@@ -364,6 +364,7 @@ html[dir] .bg-clr-notf-e2e {
 
 
 .bg-clr-notf-e2e{background-color: #ffeecd;color: #54656f;/*var(--notification-e2e-text);*/}
+.bg-clr-gray-600{background-color: var(--gray-600);}
 .bg-pos-center{background-position: center;}
 .bg-size-cover{background-size: cover;}
 .font-size-0-68-rem {
@@ -412,6 +413,14 @@ html:not([dir='rtl']) .pad-r-3px {
 
 .pos-rel{position: relative;}
 .pos-abs{position: absolute;}
+.bef-pos-abs:before{position: absolute;}
+.bef-t-0:before{top:0;}
+.bef-l-0:before{left:0;}
+.bef-z-ind-2:before{z-index: 2;}
+.bef-wdth-100:before{width: 100%;}
+.bef-hght-100:before{height: 100%;}
+.bef-con-empty:before{content: "";}
+.bef-opa-03:before{opacity: .3;}
 .z-ind-1{z-index: 1;}
 .z-ind-2{z-index: 2;}
 html:not([dir='rtl']) .b-br-rad-6px {
@@ -467,6 +476,7 @@ html:not([dir='rtl']) .b-bl-rad-6px {
 .wdth-max-media{
     max-width: calc(var(--width-msg-bubble-with-media) - 6px);
 }
+.width-max-bubble-media{max-width: var(--width-msg-bubble-with-media);}
 html[dir] ._25font {
     margin: 0 3px;
 }

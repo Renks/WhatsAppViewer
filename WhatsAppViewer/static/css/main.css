@@ -141,6 +141,7 @@
     --forwarded-indicator-text: #8696a0;
     --danger: #ea0038;
     --width-msg-bubble-with-media: 336px;
+    --gray-600 : #54656f;
 }
 body {
     /* font-family: Arial, Helvetica, sans-serif; */
