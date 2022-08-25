@@ -112,6 +112,7 @@ async function handleMsgs(data, firstTime = false) {
     let lastMsg = {
         'dateNoTime': new Date() // will be used to compare if we should print date above msgs
     };
+    let lastMsgDateDiv = '<div></div>';
 
     // load messages
     for (msg of data) {
@@ -382,8 +383,14 @@ async function handleMsgs(data, firstTime = false) {
             // Now we can grab span from template type msg-sys-default
             tmpMsgSysClone.querySelector("span[data-temp-id='msg-sys-text']").innerText = msgToAppend;
 
+            // So we can move it up the dom if the next msg has the same date
+            lastMsgDateDiv = tmpMsgSysClone.querySelector("div[data-temp-id='main']");
             // Finishing up for system messages
             divAllMsgs.appendChild(tmpMsgSysClone);
+        }else{
+            divAllMsgs.removeChild(lastMsgDateDiv);
+            divAllMsgs.appendChild(lastMsgDateDiv);
+
         }
 
         // IMPORTANT set current msg as lastMsg which will be used to compare with msg in the next iteration
