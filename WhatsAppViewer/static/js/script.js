@@ -65,6 +65,88 @@ const doesFileExist = async (urlToFile) => {
     console.log(`doesFileExist("${urlToFile}") response.status: ${response.status !== 404}`);
     return (response.status === 200) ? true : false;
 }
+const fancyTimeFormat = (duration) => {
+    // Hours, minutes and seconds
+    var hrs = ~~(duration / 3600);
+    var mins = ~~((duration % 3600) / 60);
+    var secs = ~~duration % 60;
+
+    // Output like "1:01" or "4:03:59" or "123:03:59"
+    var ret = "";
+
+    if (hrs > 0) {
+        ret += "" + hrs + ":" + (mins < 10 ? "0" : "");
+    }
+
+    ret += "" + mins + ":" + (secs < 10 ? "0" : "");
+    ret += "" + secs;
+    return ret;
+}
+//blobToBase64
+function blobToBase64(blob) {
+    return new Promise((resolve, _) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.readAsDataURL(blob);
+    });
+  }
+
+// Get file type from url
+async function getFileFromUrl(url, name, defaultType = 'image/jpeg'){
+    const response = await fetch(url);
+    const data = await response.blob();
+    return new File([data], name, {
+      type: data.type || defaultType,
+    });
+  }
+
+// Get thumbnail from video file
+const getVideoCover = async (url, seekTo = 0.0) =>{
+    const file =  await getFileFromUrl(url, 'example.mp4','video/mp4');
+    console.log("getting video cover for file: ", file);
+    return new Promise((resolve, reject) => {
+        // load the file to a video player
+        const videoPlayer = document.createElement('video');
+        videoPlayer.setAttribute('src', URL.createObjectURL(file));
+        videoPlayer.load();
+        videoPlayer.addEventListener('error', (ex) => {
+            reject("error when loading video file", ex);
+        });
+        // load metadata of the video to get video duration and dimensions
+        videoPlayer.addEventListener('loadedmetadata', () => {
+            // seek to user defined timestamp (in seconds) if possible
+            if (videoPlayer.duration < seekTo) {
+                reject("video is too short.");
+                return;
+            }
+            // delay seeking or else 'seeked' event won't fire on Safari
+            setTimeout(() => {
+              videoPlayer.currentTime = seekTo;
+            }, 200);
+            // extract video thumbnail once seeking is complete
+            videoPlayer.addEventListener('seeked', () => {
+                console.log('video is now paused at %ss.', seekTo);
+                // define a canvas to have the same dimension as the video
+                const canvas = document.createElement("canvas");
+                canvas.width = videoPlayer.videoWidth;
+                canvas.height = videoPlayer.videoHeight;
+                // draw the video frame to canvas
+                const ctx = canvas.getContext("2d");
+                ctx.drawImage(videoPlayer, 0, 0, canvas.width, canvas.height);
+                // return the canvas image as a blob
+                ctx.canvas.toBlob(
+                    blob => {
+                        resolve(blob);
+                    },
+                    "image/jpeg",
+                    0.75 /* quality */
+                );
+            });
+        });
+    });
+}
+
+
 const loadChat = async (chat_div) => {
     // DO NOTHING IF CLICKED ON ALREADY LOADED CHAT
     if (chatId == chat_div.getAttribute("chatListId")) {
@@ -177,7 +259,7 @@ async function handleMsgs(data, firstTime = false) {
                     background-image: url('data:image/jpeg;base64,${msg['thumbnail']}');"
                     `;
                     // Set thumb big url to base64 img
-                    if (doesFileExist('/static/'+msg['media_quoted_file_path'])) {
+                    if (doesFileExist('/static/' + msg['media_quoted_file_path'])) {
 
                         tmpMsgTxtClone.querySelector("div[data-temp-id='reply-img-bg-url']").style = `
                         background-image: url('/static/${msg['media_quoted_file_path']}');"
@@ -187,7 +269,7 @@ async function handleMsgs(data, firstTime = false) {
                     tmpMsgSenderTxt.innerText = "[Audio]";
                 } else if (msg['message_quoted_message_type'] == 3) {
                     tmpMsgSenderTxt.innerText = "[Video]";
-                    
+
                 } else if (msg['message_quoted_message_type'] == 4) {
                     tmpMsgSenderTxt.innerText = "[Contact]";
                 } else if (msg['message_quoted_message_type'] == 5) {
@@ -276,7 +358,69 @@ async function handleMsgs(data, firstTime = false) {
 
         } else if (msg['message_type'] == 2) {
 
+
         } else if (msg['message_type'] == 3) {
+            
+            // empty normal text msg template's msg-container
+            tmpMsgTxtCloneMain.querySelector("#msg-container").innerHTML = "";
+            // clone vid template and append it to msg container
+            const tmpVidCon = document.querySelector("#vid-regular").content.cloneNode(true);
+            // if the vid exists locally set onclick to location
+            if(msg['media_file_path']){
+                const fileExists = await doesFileExist("/static/"+msg['media_file_path']);
+                if(fileExists){
+                    tmpMsgTxtCloneMain.setAttribute("onclick", `window.open('/static/${msg['media_file_path']}')`);
+                    try {
+                        // get the frame at 1.5 seconds of the video file
+                        const coverBlob = await getVideoCover("/static/"+msg['media_file_path'],0.2g);
+                        const resposne = await blobToBase64(coverBlob);
+                        tmpVidCon.querySelector("div[data-temp-id='vid-regular-url']").style = `
+                        background-image: url('${resposne}'); width: 100%;
+                        `;
+                        
+                    } catch (ex) {
+                        console.log("ERROR: ", ex);
+                    }
+                }
+            }else{
+                // If there is no path then set the vid thumbnail to blur
+                tmpVidCon.querySelector("div[data-temp-id='vid-regular-url']").classList.add("img-thumb-blur");
+                // Offer to download ?
+
+                // Set default thumb
+                
+                tmpVidCon.querySelector("div[data-temp-id='vid-regular-url']").style = `
+                background-image: url('data:image/jpeg;base64,${msg['thumbnail']}'); width: 100%;
+                `;
+            }
+            tmpVidCon.querySelector("span[data-temp-id='vid-regular-duration']").innerText = fancyTimeFormat(msg['media_media_duration']);
+            // if there is a caption
+            if (msg['text_data']) {
+                tmpVidCon.querySelector("div[data-temp-id='vid-regular-caption']").style = "display:block";
+                tmpVidCon.querySelector("span[data-temp-id='vid-regular-caption-text']").innerText = msg["text_data"];
+                // Set time color to bubble meta
+                tmpVidCon.querySelector("div[data-testid='msg-meta']").classList.remove("clr-inverse");
+                tmpVidCon.querySelector("div[data-testid='msg-meta']").classList.add("clr-bubble-meta");
+            }
+            // Remove double tick
+            if(!msg['from_me']){
+                if (msg['recipient_count'] > 0) {
+                    // recipient_count seems like a nice way to know if its group message
+                    tmpVidCon.querySelector("span[data-temp-id='msg-dblcheck']").classList.remove("clr-icon-ack");
+                } else {
+                    // NOT A GROUP CHAT MSG - REMOVE DOUBLE TICK SUPPORT
+                    tmpVidCon.querySelector("div[data-testid='msg-meta']").removeChild(tmpVidCon.querySelector("div[data-temp-id='msg-dblcheck-div']"))
+                }
+            }
+
+
+            // setting time
+            tmpVidCon.querySelector("span[data-temp-id='time']").innerText = `${msgDateTime['hrs']}:${msgDateTime['mins']} ${msgDateTime['ampm']}`;
+
+            tmpMsgTxtCloneMain.querySelector("#msg-container").appendChild(tmpVidCon);
+
+            // Finally adding the video to main messages
+            divAllMsgs.appendChild(tmpMsgTxtClone);
 
         } else if (msg['message_type'] == 4) {
 
@@ -387,7 +531,7 @@ async function handleMsgs(data, firstTime = false) {
             lastMsgDateDiv = tmpMsgSysClone.querySelector("div[data-temp-id='main']");
             // Finishing up for system messages
             divAllMsgs.appendChild(tmpMsgSysClone);
-        }else{
+        } else {
             divAllMsgs.removeChild(lastMsgDateDiv);
             divAllMsgs.appendChild(lastMsgDateDiv);
 

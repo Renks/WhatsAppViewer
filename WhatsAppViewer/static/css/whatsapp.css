@@ -344,6 +344,7 @@ html[dir] .msg {
 .color-1 {color: #06cf9c!important;}
 .clr-danger{color: var(--danger);}
 .clr-white{color: rgba(255,255,255,.9);/*rgba(var(--inverse-rgb),.9);*/}
+.clr-inverse{color: var(--inverse);}
 .clr-bubble-meta {
     color: #667781;
     /* var(--bubble-meta); */
@@ -365,7 +366,9 @@ html[dir] .bg-clr-notf-e2e {
 
 .bg-clr-notf-e2e{background-color: #ffeecd;color: #54656f;/*var(--notification-e2e-text);*/}
 .bg-clr-gray-600{background-color: var(--gray-600);}
+.bg-clr-overlay{background-color: rgba(var(--overlay-rgb),.35);}
 .bg-pos-center{background-position: center;}
+.bg-pos-5050{background-position: 50% 50%;}
 .bg-size-cover{background-size: cover;}
 .font-size-0-68-rem {
     font-size: 0.6875rem;
@@ -421,8 +424,36 @@ html:not([dir='rtl']) .pad-r-3px {
 .bef-hght-100:before{height: 100%;}
 .bef-con-empty:before{content: "";}
 .bef-opa-03:before{opacity: .3;}
+.opa-0{opacity: 0;}
+.trans-opa-075{transition: opacity .075s;}
 .z-ind-1{z-index: 1;}
 .z-ind-2{z-index: 2;}
+.z-ind-100{z-index: 100;}
+.z-ind-101{z-index: 101;}
+html:not([dir='rtl']) .left-11px {
+    left: 11px;
+}
+.left-6px{left:6px;}
+.top-0{top:0;}
+.top-6px{top:6px;}
+.top-blur-rad-thumb {
+    top: calc(-1 * var(--blur-radius-thumbnail));
+}
+.left-blur-rad-thumb {
+    left: calc(-1 * var(--blur-radius-thumbnail));
+}
+.pad-t-blur-rad-thumb {
+    padding-top: var(--blur-radius-thumbnail);
+}
+html:not([dir='rtl']) .pad-r-blur-rad-thumb {
+    padding-right: var(--blur-radius-thumbnail);
+}
+.pad-b-blur-rad-thumb {
+    padding-bottom: var(--blur-radius-thumbnail);
+}
+html:not([dir='rtl']) .pad-l-blur-rad-thumb {
+    padding-left: var(--blur-radius-thumbnail);
+}
 html:not([dir='rtl']) .b-br-rad-6px {
     border-bottom-right-radius: var(--radius-thumb);
 }
@@ -434,6 +465,18 @@ html:not([dir='rtl']) .b-tl-rad-6px {
 }
 html:not([dir='rtl']) .b-bl-rad-6px {
     border-bottom-left-radius: var(--radius-thumb);
+}
+html:not([dir='rtl']) .b-tl-rad-50 {
+    border-top-left-radius: 50%;
+}
+html:not([dir='rtl']) .b-tr-rad-50 {
+    border-top-right-radius: 50%;
+}
+html:not([dir='rtl']) .b-br-rad-50 {
+    border-bottom-right-radius: 50%;
+}
+html:not([dir='rtl']) .b-bl-rad-50 {
+    border-bottom-left-radius: 50%;
 }
 
 .shadow-b{box-shadow: 0 1px 0.5px #0b141a21;}
@@ -460,9 +503,11 @@ html:not([dir='rtl']) .b-bl-rad-6px {
     width: 54px;
     vertical-align: middle;
 }
+.hght-50px{height: 50px;}
 .hght-100{
     height: 100%;
 }
+.wdth-50px{width: 50px;}
 .wdth-100 {
     width: 100%;
 }
@@ -487,6 +532,7 @@ html[dir] ._25font {
     font-style: italic;
     color: var(--forwarded-indicator-text);
 }
+.flx-none{flex:none;}
 .flx-grow-over-hid{
     flex-grow: 1;
     overflow: hidden;
@@ -503,6 +549,7 @@ html:not([dir='rtl']) .left-0 {
     left: 0;
 }
 .bottom-0{bottom:0;}
+.bottom-3px{bottom: 3px;}
 .bottom-6px{bottom:6px;}
 .photo-icon{
     /* Small photo icon by whatsapp */
@@ -621,14 +668,18 @@ html[dir] .div-empty {
 .wht-space-nowrap{white-space: nowrap;}
 .dsp-inline-b{display: inline-block;}
 .v-align-top{vertical-align: top;}
+.marg-l-2px{margin-left: 2px;}
 .marg-l-3px{margin-left: 3px;}
+.marg-r-3px{margin-right: 3px;}
 .marg-top-4px{margin-top: 4px;}
 .marg-346{margin: -3px -4px 6px -6px;}
 
 html:not([dir='rtl']) .marg-top-4x-meowy-pad {
     margin-right: 4px;
 }
-
+html:not([dir='rtl']) .right-7px {
+    right: 7px;
+}
 html:not([dir='rtl']) .right-8px {
     right: 8px;
 }

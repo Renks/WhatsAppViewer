@@ -151,6 +151,35 @@ kkl0lao1 : bef-wdth-100
 q80nfrzu : bef-hght-100
 lij4d1x3 : bef-con-empty
 nnoyk08r : bef-opa-03
+ntz4oiyn : z-ind-101
+axi1ht8l : opa-0
+mfeq4yke : trans-opa-075
+mb8var44 : z-ind-100
+jgz0asyo : top-6px
+ji0r0qsd : left-11px
+k17s6i4e : clr-inverse
+qq0sjtgm : top-0
+g8xmoczg : bg-clr-overlay
+g9p5wyxn : b-tl-rad-50
+i0tg5vk9 : b-tr-rad-50
+aoogvgrq : b-br-rad-50
+o2zu3hjb : b-bl-rad-50
+qmp0wt83 : hght-50px
+b6qzmhfs : wdth-50px
+gj5xqxfh : marg-l-2px
+paaq2zjn : top-blur-rad-thumb
+b6yx6y2g : left-blur-rad-thumb
+kk3akd72 : flx-none
+m7o6y653 : pad-t-blur-rad-thumb
+pfv1hzq5 : pad-r-blur-rad-thumb
+bgtrvtbx : pad-b-blur-rad-thumb
+l8dmboli : pad-l-blur-rad-thumb
+delct6vn : bg-pos-5050
+fnaq8xyt : bg-size-cover (same as qnwaluaf above)
+lrw9n60e : bottom-3px
+j33zqi64 : left-6px
+efjhou1r : marg-r-3px
+fz4q5utg : right-7px
 
 # video caption
 bkoknyjm : wdth-max-media
