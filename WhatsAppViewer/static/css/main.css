@@ -145,6 +145,12 @@
     --inverse: #fff;
     --overlay-rgb : 11,20,26;
     --blur-radius-thumbnail: 8px;
+    --width-album-extra-padding : 3px;
+    --outgoing-background-deeper : #d1f4cc;
+    --incoming-background-deeper : #f5f6f6;
+    --icon-strong-rgb : 84,101,111;
+    --document-meta : #8696a0;
+    --secondary-light : #d1d7db;
 }
 body {
     /* font-family: Arial, Helvetica, sans-serif; */

@@ -183,3 +183,75 @@ fz4q5utg : right-7px
 
 # video caption
 bkoknyjm : wdth-max-media
+
+# audio logo
+_201K0 : (same as g0rxnol2 pos-rel)
+_3j52x : (Present - Skipped)
+_2U7HB : (Present - Skipped)
+hxazv0ps : wdth-55px
+mnqpe3xa : hght-55px
+
+# Doc
+m3h9lho3 : pad-l-album-extra-padding
+lna84pfr : pad-t-album-extra-padding
+psacz3a6 : pad-r-album-extra-padding
+przvwfww : pad-b-0
+mmw11n2j : pad-l-album-extra-padding
+
+i5tg98hk : pad-t-0
+gx1rr48f : pad-l-0
+shdiholb : font-fam-inherit
+phqmzxqs : font-size-100
+gtscxtjd : clr-inherit
+thr4l2wc : bg-clr-transp
+cc8mgx9x : border-t-0
+eta5aym1 : border-r-0
+d9802myq : border-b-0
+e4xiuwjv : border-l-0
+f8m0rgwh : flx-dir-col
+elxb2u3l : flx-align-stretch
+tffp5ko5 : txt-align-inherit
+
+s0eflmyh : bg-clr-out-deeper (for out msgs)
+rrq4r3yd : bg-clr-in-deeper (for incoming msgs)
+
+jbxl65f1 : hght-34px
+lqdozo90 : pad-t-13px (didnt suit going for pad-t-20px)
+igb3k0ri : pad-r-19px
+bavixdlz : pad-b-13px (didnt suit going for pad-b-20px)
+nntdgyy8 : pad-l-19px
+pad-l-10px : pad-l-10px (Made up class, pad-l-19px was too much for doc icon)
+
+
+m0h2a7mj : flx-shrink-1
+j7l1k36l : order-0
+gjuq5ydh : align-self-auto
+o9i7y497 : marg-t-neg-1px
+
+sxl192xd : bg-rep-no
+hbhfgwk1 : bg-size-contain
+fs6hn1up : hght-30px
+ekdr8vow : wdth-26px
+icon-doc-generic : icon-doc-generic
+
+g3ewzqzm : top-neg-2px
+tt8xd2xn : marg-t-0
+mpdn4nr2 : marg-b-0
+spjzgwxb : marg-r-10px
+a3oefunm : marg-l-10px
+lhj4utae : txt-flow-ellip
+
+tddarlmj : wdth-34px
+mnd5airb : clr-icon-strong
+sabn9a5k : clr-doc-meta
+ekmn1tbb : right-110px (media query 880 max width)
+hys5s3z0 : overflow-hid-x-med (media query 880)
+ktnphmnq : overflow-hid-y-med
+hpb4froj : txt-flow-ellip-med
+tf9oak2v : wht-space-nowrap-med
+pt32pij7 : wdth-max-60px
+p8zrgzvm : (NOT FOUND)
+qnz2jpws : marg-l-4px
+t3rh7lfs : clr-secondary-light
+
+_1a1gY :  time-read-doc(time sent of doc file)

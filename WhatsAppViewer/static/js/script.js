@@ -85,24 +85,24 @@ const fancyTimeFormat = (duration) => {
 //blobToBase64
 function blobToBase64(blob) {
     return new Promise((resolve, _) => {
-      const reader = new FileReader();
-      reader.onloadend = () => resolve(reader.result);
-      reader.readAsDataURL(blob);
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.readAsDataURL(blob);
     });
-  }
+}
 
 // Get file type from url
-async function getFileFromUrl(url, name, defaultType = 'image/jpeg'){
+async function getFileFromUrl(url, name, defaultType = 'image/jpeg') {
     const response = await fetch(url);
     const data = await response.blob();
     return new File([data], name, {
-      type: data.type || defaultType,
+        type: data.type || defaultType,
     });
-  }
+}
 
 // Get thumbnail from video file
-const getVideoCover = async (url, seekTo = 0.0) =>{
-    const file =  await getFileFromUrl(url, 'example.mp4','video/mp4');
+const getVideoCover = async (url, seekTo = 0.0) => {
+    const file = await getFileFromUrl(url, 'example.mp4', 'video/mp4');
     console.log("getting video cover for file: ", file);
     return new Promise((resolve, reject) => {
         // load the file to a video player
@@ -121,7 +121,7 @@ const getVideoCover = async (url, seekTo = 0.0) =>{
             }
             // delay seeking or else 'seeked' event won't fire on Safari
             setTimeout(() => {
-              videoPlayer.currentTime = seekTo;
+                videoPlayer.currentTime = seekTo;
             }, 200);
             // extract video thumbnail once seeking is complete
             videoPlayer.addEventListener('seeked', () => {
@@ -145,6 +145,43 @@ const getVideoCover = async (url, seekTo = 0.0) =>{
         });
     });
 }
+
+const getExtensionFromFileName = (mime_type = "filename.txt",splitter=".") => {
+    return mime_type.substring(mime_type.lastIndexOf(splitter) + 1, mime_type.length).toUpperCase();
+};
+
+
+/**
+ * Format bytes as human-readable text.
+ * 
+ * @param bytes Number of bytes.
+ * @param si True to use metric (SI) units, aka powers of 1000. False to use 
+ *           binary (IEC), aka powers of 1024.
+ * @param dp Number of decimal places to display.
+ * 
+ * @return Formatted string.
+ */
+ function humanFileSize(bytes, si=false, dp=1) {
+    const thresh = si ? 1000 : 1024;
+  
+    if (Math.abs(bytes) < thresh) {
+      return bytes + ' B';
+    }
+  
+    const units = si 
+      ? ['kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'] 
+      : ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
+    let u = -1;
+    const r = 10**dp;
+  
+    do {
+      bytes /= thresh;
+      ++u;
+    } while (Math.round(Math.abs(bytes) * r) / r >= thresh && u < units.length - 1);
+  
+  
+    return bytes.toFixed(dp) + ' ' + units[u];
+  }
 
 
 const loadChat = async (chat_div) => {
@@ -203,8 +240,9 @@ async function handleMsgs(data, firstTime = false) {
         // Date message should be appeneded at the end so scroll below near the end
 
         const tmpMsgTxtClone = tmpMsgTxt.content.cloneNode(true);
-        const tmpMsgTxtCloneApp = tmpMsgTxtClone.querySelector("div[data-temp-id='append-here']");
         const tmpMsgTxtCloneMain = tmpMsgTxtClone.querySelector("div[data-temp-id='main']");
+        const tmpMsgTxtCloneIfty = tmpMsgTxtClone.querySelector(".ifty");
+        const tmpMsgTxtCloneApp = tmpMsgTxtClone.querySelector("div[data-temp-id='append-here']");
         // INTIALIZING templateClone default attributes
         tmpMsgTxtCloneMain.setAttribute("msgid", msg['_id']);
         tmpMsgTxtCloneMain.setAttribute("msgchatrowid", msg['chat_row_id']);
@@ -357,38 +395,56 @@ async function handleMsgs(data, firstTime = false) {
             divAllMsgs.appendChild(tmpMsgSysClone);
 
         } else if (msg['message_type'] == 2) {
-
+            // Add text data
+            if (msg['media_media_name']) {
+                tmpMsgTxtClone.querySelector("span[data-temp-id='my-text']").innerText = `
+                ${msg['media_media_name']}
+                `;
+            }
+            if (msg['media_file_path']) {
+                const fileExists = await doesFileExist("/static/" + msg['media_file_path']);
+                if (fileExists) {
+                    // Change pointer to cursor of main
+                    tmpMsgTxtCloneMain.classList.add("cur-point");
+                    tmpMsgTxtCloneMain.setAttribute("onclick", `window.open('/static/${msg['media_file_path']}')`);
+                }
+            }
+            // Audio message — append the audio logo & audio file name to normal text message
+            tmpMsgTxtCloneApp.appendChild(
+                document.querySelector("#audio-regular").content.cloneNode(true)
+            );
+            divAllMsgs.appendChild(tmpMsgTxtClone);
 
         } else if (msg['message_type'] == 3) {
-            
+
             // empty normal text msg template's msg-container
             tmpMsgTxtCloneMain.querySelector("#msg-container").innerHTML = "";
             // clone vid template and append it to msg container
             const tmpVidCon = document.querySelector("#vid-regular").content.cloneNode(true);
             // if the vid exists locally set onclick to location
-            if(msg['media_file_path']){
-                const fileExists = await doesFileExist("/static/"+msg['media_file_path']);
-                if(fileExists){
+            if (msg['media_file_path']) {
+                const fileExists = await doesFileExist("/static/" + msg['media_file_path']);
+                if (fileExists) {
                     tmpMsgTxtCloneMain.setAttribute("onclick", `window.open('/static/${msg['media_file_path']}')`);
                     try {
                         // get the frame at 1.5 seconds of the video file
-                        const coverBlob = await getVideoCover("/static/"+msg['media_file_path'],0.2g);
+                        const coverBlob = await getVideoCover("/static/" + msg['media_file_path']);
                         const resposne = await blobToBase64(coverBlob);
                         tmpVidCon.querySelector("div[data-temp-id='vid-regular-url']").style = `
                         background-image: url('${resposne}'); width: 100%;
                         `;
-                        
+
                     } catch (ex) {
                         console.log("ERROR: ", ex);
                     }
                 }
-            }else{
+            } else {
                 // If there is no path then set the vid thumbnail to blur
                 tmpVidCon.querySelector("div[data-temp-id='vid-regular-url']").classList.add("img-thumb-blur");
                 // Offer to download ?
 
                 // Set default thumb
-                
+
                 tmpVidCon.querySelector("div[data-temp-id='vid-regular-url']").style = `
                 background-image: url('data:image/jpeg;base64,${msg['thumbnail']}'); width: 100%;
                 `;
@@ -403,7 +459,7 @@ async function handleMsgs(data, firstTime = false) {
                 tmpVidCon.querySelector("div[data-testid='msg-meta']").classList.add("clr-bubble-meta");
             }
             // Remove double tick
-            if(!msg['from_me']){
+            if (!msg['from_me']) {
                 if (msg['recipient_count'] > 0) {
                     // recipient_count seems like a nice way to know if its group message
                     tmpVidCon.querySelector("span[data-temp-id='msg-dblcheck']").classList.remove("clr-icon-ack");
@@ -476,6 +532,63 @@ async function handleMsgs(data, firstTime = false) {
             divAllMsgs.appendChild(tmpMsgSysClone);
 
         } else if (msg['message_type'] == 9) {
+            // Doc
+            // Set default width of msg-container so that its the same for all docs
+            tmpMsgTxtCloneMain.querySelector("#msg-container").style = `
+                width: 340px;
+            `;
+
+            // clone the doc-regular template
+            const tmpMsgDocClone = document.querySelector("#doc-regular").content.cloneNode(true);
+            // Changing doc stuff
+            // If the media is outgoing then replace bg-clr-outgoing with incoming
+            if(msg["from_me"]){
+                // Remove incoming class
+                tmpMsgDocClone.querySelector("div[data-temp-id='doc-background']")
+                .classList.remove("bg-clr-in-deeper");
+                // Add outgoing class
+                tmpMsgDocClone.querySelector("div[data-temp-id='doc-background']")
+                .classList.add("bg-clr-out-deeper");
+            }
+
+            // Media name — cutting if too long
+            tmpMsgDocClone.querySelector("span[data-temp-id='doc-name']").innerText = 
+            (msg["media_media_name"].length>30)?msg["media_media_name"].substring(0,30)+"...":msg["media_media_name"];
+            ;
+            // If file exists add onclick event to download button
+            if (msg['media_file_path']) {
+                const fileExists = await doesFileExist("/static/" + msg['media_file_path']);
+                if (fileExists) {
+                    tmpMsgDocClone
+                    .querySelector("div[data-temp-id='doc-download']")
+                    .setAttribute("onclick", `window.open('/static/${msg['media_file_path']}')`);
+                }
+            }
+            // Offer to download if file doesn't exist locally?
+
+            // Adding Extension
+            tmpMsgDocClone.querySelector("span[data-temp-id='doc-type']").innerText = getExtensionFromFileName(msg["text_data"]);
+            // Adding File Size
+            tmpMsgDocClone.querySelector("span[data-temp-id='doc-file-size']")
+                .innerText = humanFileSize(msg['media_file_size'],true);
+            // Time sent/read
+            tmpMsgDocClone.querySelector("span[data-temp-id='msg-time']").innerText = `${msgDateTime['hrs']}:${msgDateTime['mins']} ${msgDateTime['ampm']}`;
+
+
+            // Removing Blue double tick if its group chat and message wasn't from me
+            if (msg['recipient_count'] > 0) {
+                // recipient_count seems like a nice way to know if its group message
+                tmpMsgDocClone.querySelector("span[data-temp-id='msg-dblcheck']").classList.remove("clr-icon-ack");
+            } else {
+                // NOT A GROUP CHAT MSG - REMOVE DOUBLE TICK SUPPORT
+                tmpMsgDocClone.querySelector("div[data-testid='msg-meta']").removeChild(tmpMsgDocClone.querySelector("div[data-temp-id='msg-dblcheck-div']"))
+            }
+
+            // Append to all messages
+            // Need to clear the ifty and then append the doc template
+            tmpMsgTxtCloneIfty.innerHTML = "";
+            tmpMsgTxtCloneIfty.appendChild(tmpMsgDocClone);
+            divAllMsgs.appendChild(tmpMsgTxtClone);
 
         } else if (msg['message_type'] == 10) {
             // Prepare the system message template
