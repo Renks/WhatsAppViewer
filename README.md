@@ -1,5 +1,5 @@
 # WhatsAppViewer
-## Under development, can read texts and images for now
+## [Under development]
 WhatsAppViewer app that parses android whatsapp database and displays it in web browser
 
 ## Installation
