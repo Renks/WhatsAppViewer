@@ -8,4 +8,4 @@ WhatsAppViewer app that parses android whatsapp database and displays it in web 
 ## Usage
 `python wa.py`
 
-Goto [localhost:5001](https://localhost:5001) in a web browser
+Goto [localhost:5001](http://localhost:5001) in a web browser
