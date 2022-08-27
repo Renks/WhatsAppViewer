@@ -6,7 +6,7 @@ WhatsAppViewer app that parses android whatsapp database and displays it in web 
 `pip install -r requirements.txt`
 
 ## Usage
-Paste "msgstore.db" and "wa.db" in WhatsAppViewer/static/db/
+Paste "msgstore.db" and "wa.db" in WhatsAppViewer/db/
 
 Paste WhatsApp Media folder's content in WhatsAppViewer/static/Media/
 
