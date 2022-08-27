@@ -6,6 +6,12 @@ WhatsAppViewer app that parses android whatsapp database and displays it in web 
 `pip install -r requirements.txt`
 
 ## Usage
-`python wa.py`
+Paste "msgstore.db" and "wa.db" in WhatsAppViewer/static/db/
+
+Paste WhatsApp Media folder's content in WhatsAppViewer/static/Media/
+
+Paste All Profile pictures in WhatsAppViewer/static/cache (Note Profile Picture file name should be identical to the phone number)
+
+run `python wa.py` in terminal
 
 Goto [localhost:5001](http://localhost:5001) in a web browser
