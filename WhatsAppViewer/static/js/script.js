@@ -281,8 +281,13 @@ async function handleMsgs(data, firstTime = false) {
                 // for example it could be an image,video,location,doc etc
                 // So all the for "reply to message" type goes here
                 tmpMsgTxtCloneApp.prepend(tmpMsgTxtReply.content.cloneNode(true));
-                tmpMsgTxtClone.querySelector("span[data-temp-id='sender-name']").innerText = document.querySelector("#profile-name").innerText;
-                const tmpMsgSenderTxt = tmpMsgTxtClone.querySelector("span[data-temp-id='sender-text']");;
+                // Correcting sender name
+                // console.log(msg);
+                // tmpMsgTxtClone.querySelector("span[data-temp-id='sender-name']").innerText = document.querySelector("#profile-name").innerText;
+                // if msg.from_me then sender = You else if theres a quoted_sender_user
+                const msg_sender = (msg['message_quoted_from_me']) ? "You" : ((msg['message_quoted_sender_user'] != "") ? msg['message_quoted_sender_user'] : document.querySelector("#profile-name").innerText);
+                tmpMsgTxtClone.querySelector("span[data-temp-id='sender-name']").innerText = msg_sender;
+                const tmpMsgSenderTxt = tmpMsgTxtClone.querySelector("span[data-temp-id='sender-text']");
                 if (msg['message_quoted_message_type'] == 0) {
                     tmpMsgSenderTxt.innerText = msg['message_quoted_text_data'];
                 } else if (msg['message_quoted_message_type'] == 1) {

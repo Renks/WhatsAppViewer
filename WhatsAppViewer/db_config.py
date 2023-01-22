@@ -4,7 +4,7 @@ import sqlite3
 dBmsgstoreSrc = "WhatsAppViewer/db/msgstore.db"
 dBwaSrc = "WhatsAppViewer/db/wa.db"
 
-def db_query(query:str,needWa:float = False):
+def db_query(query:str,needWa:bool = False):
     con = sqlite3.connect(dBmsgstoreSrc)
     con.row_factory = sqlite3.Row
     cur = con.cursor()

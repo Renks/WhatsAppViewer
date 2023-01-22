@@ -73,7 +73,7 @@ LEFT JOIN message_text on message._id=message_text.message_row_id)
 LEFT JOIN message_forwarded on message._id=message_forwarded.message_row_id)
 '''
 
-SQL_MESSAGES_DB_QUERY = '''
+SQL_MESSAGES_DB_QUERY_OLD_1 = '''
 SELECT
 message.*,
 message_system.action_type as msg_sys_action_type,
@@ -139,4 +139,80 @@ LEFT JOIN message_media ON message._id=message_media.message_row_id
 LEFT JOIN message_quoted_media ON message._id=message_quoted_media.message_row_id
 LEFT JOIN message_location ON message._id=message_location.message_row_id
 '''
-
+SQL_MESSAGES_DB_QUERY = '''
+SELECT
+message.*,
+message_system.action_type as msg_sys_action_type,
+jid.user as jid_user,
+jid.server as jid_server,
+jid.agent as jid_agent,
+jid.device as jid_device,
+jid.type as jid_type,
+jid.raw_string as jid_raw_string,
+wa.wa_contacts.display_name as wa_display_name,
+message_forwarded.message_row_id as is_msg_forwarded,
+message_quoted.from_me as message_quoted_from_me,
+message_quoted.sender_jid_row_id as message_quoted_sender_jid_row_id,
+CASE
+WHEN message.lookup_tables = 2 THEN (
+	SELECT COALESCE(wa_display_name, user_jid_user) AS wa_display_name
+	   FROM (
+		SELECT jid.user AS user_jid_user, jid.raw_string, wa.wa_contacts.display_name AS wa_display_name
+		FROM jid
+		LEFT JOIN wa.wa_contacts ON jid.raw_string = wa.wa_contacts.jid
+		WHERE jid._id = message_quoted.sender_jid_row_id
+	)
+)
+END AS message_quoted_sender_user,
+message_quoted.key_id as message_quoted_key_id,
+message_quoted.message_type as message_quoted_message_type,
+message_quoted.text_data as message_quoted_text_data,
+message_text.description as message_text_description,
+message_text.page_title as message_text_page_title,
+message_text.url as message_text_url,
+message_text.preview_type as message_text_preview_type,
+CASE
+WHEN message.lookup_tables = 2 THEN (
+SELECT message_thumbnail.thumbnail FROM message_thumbnail WHERE
+message_thumbnail.message_row_id = (SELECT message._id FROM message WHERE message.key_id = message_quoted.key_id)
+)
+ELSE message_thumbnail.thumbnail
+END AS thumbnail,
+message_media.file_path as media_file_path,
+message_media.file_size as media_file_size,
+message_media.media_key as media_media_key,
+message_media.width as media_width,
+message_media.height as media_height,
+message_media.message_url as media_message_url,
+message_media.mime_type as media_mime_type,
+message_media.media_name as media_media_name,
+message_media.media_duration as media_media_duration,
+message_media.media_caption as media_media_caption,
+message_quoted_media.file_path as media_quoted_file_path,
+message_quoted_media.file_size as media_quoted_file_size,
+message_quoted_media.media_key as media_quoted_media_key,
+message_quoted_media.width as media_quoted_width,
+message_quoted_media.height as media_quoted_height,
+message_quoted_media.message_url as media_quoted_message_url,
+message_quoted_media.mime_type as media_quoted_mime_type,
+message_quoted_media.media_name as media_quoted_media_name,
+message_quoted_media.media_duration as media_quoted_media_duration,
+message_quoted_media.media_caption as media_quoted_media_caption,
+message_location.latitude AS location_latitude,
+message_location.longitude AS location_longitude,
+message_location.live_location_share_duration AS location_live_location_share_duration,
+message_location.live_location_final_latitude AS location_live_location_final_latitude,
+message_location.live_location_final_longitude AS location_live_location_final_longitude,
+message_location.live_location_final_timestamp AS location_live_location_final_timestamp
+FROM message
+LEFT JOIN message_system ON message._id = message_system.message_row_id
+LEFT JOIN jid ON message.sender_jid_row_id=jid._id
+LEFT JOIN wa.wa_contacts ON jid.raw_string=wa.wa_contacts.jid
+LEFT JOIN message_forwarded ON message._id=message_forwarded.message_row_id
+LEFT JOIN message_quoted ON message._id=message_quoted.message_row_id
+LEFT JOIN message_text ON message._id=message_text.message_row_id
+LEFT JOIN message_thumbnail ON message._id=message_thumbnail.message_row_id
+LEFT JOIN message_media ON message._id=message_media.message_row_id
+LEFT JOIN message_quoted_media ON message._id=message_quoted_media.message_row_id
+LEFT JOIN message_location ON message._id=message_location.message_row_id
+'''
