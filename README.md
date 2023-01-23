@@ -1,6 +1,9 @@
 # WhatsAppViewer
 ![](https://img.shields.io/badge/abandoned-true-red)
-## [<font color="red" face="calibre">NOT</font> Under development]
+
+> __Warning__
+# [ ${{\color{red}NOT}}$ Under development ]
+
 WhatsAppViewer app that parses android whatsapp database and displays it in web browser
 
 ## Installation
