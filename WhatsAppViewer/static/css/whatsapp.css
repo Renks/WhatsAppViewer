@@ -342,6 +342,7 @@ html[dir] .msg {
 }
 /* Trying to match whatsappweb css here */
 .color-1 {color: #06cf9c!important;}
+.color-2 {color: #ef6130 !important;}
 .clr-inherit{color:inherit;}
 .clr-danger{color: var(--danger);}
 .clr-white{color: rgba(255,255,255,.9);/*rgba(var(--inverse-rgb),.9);*/}
@@ -368,6 +369,7 @@ html[dir] .msg {
 .bg-rep-no{background-repeat: no-repeat;}
 .bg-size-contain{background-size: contain;}
 .bg-color-1{background-color: #06cf9c!important;}
+.bg-color-2{background-color: #ef6130!important;} 
 .bg-color-white{background-color: #fff!important;}
 .bg-clr-transp{background-color: transparent;}
 html[dir] .bg-clr-notf-e2e {

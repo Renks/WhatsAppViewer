@@ -1,0 +1,1 @@
+Paste everything from "[YourPhonesStorage]/WhatsApp/Media/" here

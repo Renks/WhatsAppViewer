@@ -287,6 +287,10 @@ async function handleMsgs(data, firstTime = false) {
                 // if msg.from_me then sender = You else if theres a quoted_sender_user
                 const msg_sender = (msg['message_quoted_from_me']) ? "You" : ((msg['message_quoted_sender_user']) ? msg['message_quoted_sender_user'] : document.querySelector("#profile-name").innerText);
                 tmpMsgTxtClone.querySelector("span[data-temp-id='sender-name']").innerText = msg_sender;
+                if (msg['message_quoted_from_me'] != 1) {
+                    tmpMsgTxtClone.querySelector("span[data-temp-id='sender-name']").classList.add("color-2");
+                    tmpMsgTxtClone.querySelector("span[class='bg-color-1 tiny-bar']").classList.replace("bg-color-1", "bg-color-2");
+                }
                 const tmpMsgSenderTxt = tmpMsgTxtClone.querySelector("span[data-temp-id='sender-text']");
                 if (msg['message_quoted_message_type'] == 0) {
                     tmpMsgSenderTxt.innerText = msg['message_quoted_text_data'];
